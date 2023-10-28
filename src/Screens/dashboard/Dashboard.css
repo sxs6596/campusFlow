@@ -1,0 +1,23 @@
+.main-content-container {
+    padding: 10px;
+    height: fit-content;
+    padding-top: 90px;
+}
+
+.dashboard-main {
+    width: calc(100% - 300px);
+    margin-left: 300px;
+}
+
+.dashboard-main-item {
+    width: 100%;
+    padding: 20px 30px;
+}
+
+
+@media screen and (max-width:768px) {
+    .dashboard-main {
+        width: 100%;
+        margin-left: 0px;
+    }
+}

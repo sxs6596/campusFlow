@@ -1,0 +1,9 @@
+.enrolled-header{
+    padding: 10px 0;
+    align-items: center;
+    justify-content: space-between;
+}
+.course-container{
+    flex-wrap: wrap;
+    justify-content: space-between;
+}

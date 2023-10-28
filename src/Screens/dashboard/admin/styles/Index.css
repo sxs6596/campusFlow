@@ -1,0 +1,11 @@
+.admin-analytics {
+    text-align: center;
+    margin: 20px 0;
+    color: white;
+    justify-content: space-between;
+}
+
+.inf-card {
+    padding: 10px 30px;
+    background-color: tomato;
+}

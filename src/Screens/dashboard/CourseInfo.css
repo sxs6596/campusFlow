@@ -1,0 +1,74 @@
+/* CourseInfo.css */
+
+.course-info {
+    max-width: 600px;
+    margin: 40px auto;
+    padding: 20px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+  }
+  
+  .title {
+    text-align: center;
+    margin-bottom: 30px;
+  }
+  
+  .select-container {
+    text-align: center;
+    margin-bottom: 20px;
+  }
+  
+  .select {
+    padding: 10px 20px;
+    border-radius: 4px;
+    background: #eee;
+    font-size: 16px;
+  }
+  
+  /* Course styles */
+  
+  .course-name {
+    margin-bottom: 10px;
+  }
+  
+  .description {
+    line-height: 1.6;
+    margin-bottom: 15px;
+  }
+  
+  .topics {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+  
+  .topic {
+    margin-bottom: 5px;
+  }
+  
+  /* Button styles */
+  
+  .btn {
+    display: inline-block;
+    padding: 10px 15px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    text-transform: uppercase;
+    font-weight: bold;
+  }
+  
+  .approve {
+    background: green;
+    color: white;
+  }
+  
+  .reject {
+    background: red;
+    color: white;
+  }
+  
+  .actions {
+    text-align: center;
+    margin-top: 25px;
+  }

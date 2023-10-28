@@ -1,0 +1,9 @@
+.service-h1{
+    padding: 10px 0;
+}
+
+.service-img{
+    width: 50%;
+    height: 50%;
+    object-fit: contain;
+}

@@ -1,0 +1,38 @@
+.course-header {
+    padding: 10px 0;
+}
+
+.course-delete {
+    align-items: center;
+    justify-content: space-between;
+    background-color: gainsboro;
+    margin-bottom: 1rem;
+    padding: 10px 30px;
+}
+
+.delete {
+    background-color: #ff0000;
+    color: #fff;
+    border: none;
+    font-size: 16px;
+    padding: 0.5rem 1rem;
+    border-radius: 0.5rem;
+}
+
+.course-box{
+    width: 100%;
+    height: fit-content;
+    padding: 10px 20px;
+    margin: 10px 0;
+    align-items: center;
+    background-color: gainsboro;
+    justify-content: space-between;
+}
+.deleteBtn{
+    background-color: #ff0000;
+    color: #fff;
+    border: none;
+    font-size: 16px;
+    padding: 0.5rem 1rem;
+    border-radius: 0.5rem;
+}

@@ -1,0 +1,28 @@
+.setting-container {
+    width: 100%;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.setting-header {
+    width: 50%;
+    height: fit-content;
+    padding: 10px 20px;
+    margin: 10px 0;
+    background-color: aliceblue;
+}
+
+.delete {
+    width: 50%;
+    height: fit-content;
+    padding: 10px 0;
+    margin: 10px 0;
+    background-color: aliceblue;
+}
+
+.delete a {
+    color: #ffffff;
+}

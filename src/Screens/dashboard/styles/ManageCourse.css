@@ -1,0 +1,13 @@
+.manage-course-container{
+    width: 100%;
+    height: 100%;
+    flex-wrap: wrap;
+    box-sizing: border-box;
+    display: flex;  /* Ensuring that the container acts as a flexbox */
+    gap: 16px;  /* Adding space between the course cards */
+}
+
+.course-card {
+    /* Additional styles for individual course cards, if needed */
+    margin-bottom: 16px;  /* Adding space below each course card */
+}

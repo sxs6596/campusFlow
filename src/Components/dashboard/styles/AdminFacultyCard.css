@@ -1,0 +1,28 @@
+.admin-faculty-card {
+    width: 100%;
+    padding: 20px 0;
+}
+
+.sc-text-item {
+    flex: 1;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 10px;
+}
+
+.faculty-external-link {
+    width: 300px;
+    justify-content: space-between;
+}
+
+@media screen and (max-width: 768px) {
+    .sc-text-item {
+        flex-wrap: wrap;
+    }
+
+    .faculty-external-link {
+        width: 100%;
+        margin-top: 10px;
+        justify-content: space-between;
+    }
+}

@@ -1,0 +1,12 @@
+.exam-card{
+    width: 100%;
+    padding: 10px 0;
+    justify-content: space-between;
+}
+.exam-card-item{
+    flex: 1;
+    text-align: center;
+}
+.exam-card:nth-child(odd){
+    background-color: #cfcfcf;
+}

@@ -1,0 +1,159 @@
+@font-face {
+  font-family: "IBMPlexSans";
+  src: url("./assets/fonts/IBMPlexSans-Regular.ttf");
+}
+
+@font-face {
+  font-family: "IBMPlexSans-Bold";
+  src: url("./assets/fonts/IBMPlexSans-Medium.ttf");
+}
+
+@font-face {
+  font-family: "Roboto";
+  src: url("./assets/fonts/Roboto-Regular.ttf");
+}
+:root{
+  --blue: #2222e6;
+}
+* {
+  margin: 0;
+  padding: 0;
+  font-kerning: auto;
+  box-sizing: border-box;
+  font-family: "IBMPlexSans", sans-serif;
+}
+
+::-webkit-scrollbar {
+  display: none;
+}
+
+a {
+  text-decoration: none !important;
+  font-family: "Roboto", sans-serif;
+}
+
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus,
+textarea:-webkit-autofill,
+textarea:-webkit-autofill:hover,
+textarea:-webkit-autofill:focus{
+  background-color: transparent;
+  outline: none;
+  border: none;
+}
+
+.row {
+  display: flex;
+  flex-direction: row;
+}
+
+.col {
+  display: flex;
+  flex-direction: column;
+}
+
+.cent {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.select{
+  border:  none;
+  font-size: 15px;
+  padding: 10px 30px;
+}
+
+.txt-area,
+.input-core {
+  width: 100%;
+  height: 45px;
+  display: flex;
+  padding: 0 10px;
+  align-items: center;
+  margin: 5px 0;
+  border: 1px solid gray;
+}
+
+.input-core{
+  align-items: center;
+}
+
+.input {
+  width: 100%;
+  height: 100%;
+  border: none;
+  outline: none;
+  font-size: 16px;
+  padding: 0 10px;
+  background-color: transparent;
+}
+
+.input::placeholder {
+  color: black;
+}
+
+.input-img {
+  width: 30px;
+  height: 30px;
+}
+.txt-area{
+  height: 200px;
+}
+.txt-area .textarea{
+  width: 100%;
+  height: 100%;
+  resize: none;
+  border: none;
+  outline: none;
+  font-size: 16px;
+  padding: 10px 0;
+  background-color: transparent;
+}
+
+.dbl {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.dbl .input-core {
+  width: 49%;
+}
+
+.button {
+  width: 100%;
+  height: 40px;
+  border: none;
+  outline: none;
+  color: #fff;
+  font-size: 18px;
+  margin: 10px 0;
+  background-color: cadetblue;
+}
+
+.hamburger-menu-container {
+  display: none;
+}
+
+.hamburger-menu {
+  width: 30px;
+  height: 30px;
+  cursor: pointer;
+}
+select {
+  width: 100%;
+}
+@media screen and (max-width: 420px) {
+  .upper-link-header {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+  }
+
+  .hamburger-menu-container {
+    display: block;
+  }
+}

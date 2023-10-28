@@ -1,0 +1,163 @@
+.auth-container {
+    width: 100%;
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    background-color: #EDE7F6;
+
+    /* background-color: coral; */
+    /* justify-content: center; */
+}
+
+.auth-nav {
+    width: 80%;
+    height: 80px;
+    align-items: center;
+    margin-top: 30px;
+    justify-content: space-between;
+}
+
+.auth-item-links {
+    flex: .8;
+    justify-content: space-between;
+}
+
+.auth-nav-link {
+    /* color: #fff; */
+    border-radius: 20px;
+    padding: 10px 30px;
+    background-color: gainsboro;
+}
+
+.auth-form-header {
+    margin-bottom: 40px;
+}
+
+.auth-form-container {
+    width: 50%;
+    height: fit-content;
+    padding: 50px 40px;
+    margin-top: 70px;
+    background-color: gainsboro;
+}
+
+.input-core {
+    background-color: white;
+
+}
+
+@media screen and (max-width: 428px) {
+    .auth-nav {
+        height: fit-content !important;
+        flex-direction: column !important;
+    }
+
+    .auth-item-links {
+        flex-direction: column !important;
+        width: 100%;
+    }
+
+    .auth-nav-link {
+        margin: 10px 0;
+    }
+
+    .auth-container {
+        flex-direction: column;
+    }
+
+    .auth-form-container {
+        width: 90%;
+        height: fit-content;
+        padding: 50px 20px;
+        margin-top: 70px;
+        background-color: gainsboro;
+
+    }
+
+    .dbl {
+        flex-direction: column !important;
+    }
+
+    .dbl .input-core {
+        width: 100% !important;
+    }
+
+    .dbl .input-core .input {
+        width: 100%;
+    }
+}
+
+@media screen and (max-width: 600px) {
+    .auth-form-container {
+        width: 90%;
+        padding: 20px;
+    }
+
+    .input-core {
+        width: 100%;
+    }
+
+    input.input {
+        width: calc(100% - 20px);
+        /* Consider padding */
+        margin: 5px 0;
+    }
+
+    button.button {
+        width: 100%;
+        margin: 10px 0;
+    }
+}
+
+@media screen and (max-width: 600px) {
+    .container {
+        width: 90%;
+        padding: 10px;
+    }
+
+    input[type=text],
+    input[type=password] {
+        width: calc(100% - 20px);
+        /* Consider padding */
+    }
+
+    .button {
+        width: 100%;
+    }
+}
+
+
+@media screen and (max-width: 600px) {
+    .container {
+        width: 100%;
+        padding: 10px;
+    }
+
+    input[type=text],
+    input[type=password] {
+        width: calc(100% - 20px);
+        /* Consider padding */
+    }
+
+    .button {
+        width: 100%;
+    }
+}
+.tos-link {
+    color: blue;
+}
+
+.tos-details {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+}
+
+#tos-label {
+    padding-left: 10px;
+}
+
+.signup-btn {
+    border-radius: 20px;
+}

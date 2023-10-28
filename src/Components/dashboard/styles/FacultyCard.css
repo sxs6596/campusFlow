@@ -1,0 +1,32 @@
+.faculty-card {
+    width: 300px;
+    height: fit-content;
+    border-radius: 10px;
+    margin: 10px 20px;
+    background-color: #dccfff;
+}
+
+.faculty-img-cont {
+    width: 100%;
+    height: 200px;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
+.faculty-img {
+    width: 100%;
+    height: 200px;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
+.faculty-txt-cont {
+    width: 100%;
+    height: fit-content;
+    padding: 10px 15px;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-around;
+}

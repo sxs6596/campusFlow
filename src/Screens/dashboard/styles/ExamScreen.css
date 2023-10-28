@@ -1,0 +1,10 @@
+.exam-header{
+    width: 100%;
+    padding: 10px 0;
+    justify-content: space-around;
+    background-color: rgb(131, 201, 113);
+}
+.exam-header-item{
+    flex: 1;
+    text-align: center;
+}
