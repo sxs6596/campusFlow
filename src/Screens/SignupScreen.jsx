@@ -48,6 +48,7 @@ export default function SignupScreen() {
                 last_name: data.lastName,
                 email: data.email,
                 password: data.password,
+                user:"student"
             };
 
             try {

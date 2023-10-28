@@ -13,11 +13,17 @@ header('X-Frame-Options: SAMEORIGIN');
 // header('X-Content-Type-Options: nosniff');
 // header('Referrer-Policy: no-referrer-when-downgrade');
 
+// // Database connection parameters
+// $host = 'localhost';
+// $username = 'root';
+// $password = '';
+// $db = 'campus-flow';
+
 // Database connection parameters
 $host = 'localhost';
-$username = 'root';
-$password = '';
-$db = 'campus-flow';
+$username = 'sxs6596_root';
+$password = 'Harsha6596$';
+$db = 'sxs6596_campus_test';
 
 // Create connection to the database
 $conn = mysqli_connect($host, $username, $password, $db);
@@ -53,7 +59,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $user = mysqli_real_escape_string($conn, $data["user"]);
 
     // Insert query using prepared statement
-    $stmt = mysqli_prepare($conn, "INSERT INTO signup (first_name, last_name, email, password, user) VALUES (?, ?, ?, ?, ?)");
+    $stmt = mysqli_prepare($conn, "INSERT INTO signup (first_name, last_name, email, password, user) VALUES (?, ?, ?, ?, '?')");
 
     // Bind parameters
     mysqli_stmt_bind_param($stmt, "sssss", $first_name, $last_name, $email, $password, $user);

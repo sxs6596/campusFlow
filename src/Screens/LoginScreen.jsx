@@ -16,13 +16,14 @@ const LoginComponent = () => {
   useEffect(() => {
     async function fetchData() {
       try {
-        const response = await axios.get('http://localhost/db_test.php');
+        const response = await axios.get(
+          "https://rxk4239.uta.cloud/db_test.php"
+        );
         setData(response.data.data);
       } catch (error) {
-        console.error('Error fetching data:', error);
+        console.error("Error fetching data:", error);
       }
     }
-
     fetchData();
   }, []);
 
@@ -37,39 +38,33 @@ const LoginComponent = () => {
     }
   }
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log(`email is ${emailData} and password is ${passwordData}`);
+    const response = await axios.get("https://rxk4239.uta.cloud/db_test.php");
 
-    if (Array.isArray(data)) {
-      const result = data.find((u) => u.email === emailData && u.password === passwordData);
-      if (result) {
-        const user_type = result.user;
-        switch (user_type) {
-          case "admin":
-            navigate("/admin");
-            break;
-          case "student":
-            navigate("/students");
-            break;
-          case "faculty":
-            navigate("/faculty");
-            break;
-          case "cord":
-            navigate("/cord");
-            break;
-          case "qa":
-            navigate("/qa");
-            break;
-          default:
-            navigate("/student");
-            break;
-        }
-      } else {
-        alert("Invalid email or password");
-      }
+    const user = response.data.data.find(
+      (u) => u.email === emailData && u.password === passwordData
+    );
+    console.log(
+      `user matched :${user.email} and ${user.password} and type of user : ${user.user}`
+    );
+    if (user.user === "student") {
+      localStorage.setItem("user", "student");
+      window.location.href = "/dashboard";
+    } else if (user.user === "faculty") {
+      localStorage.setItem("user", "faculty");
+      window.location.href = "/dashboard";
+    } else if (user.user === "admin") {
+      localStorage.setItem("user", "admin");
+      window.location.href = "/dashboard";
+    } else if (user.user === "quality-admin") {
+      localStorage.setItem("user", "quality-admin");
+      window.location.href = "/dashboard";
+    } else if (user.user === "cord") {
+      localStorage.setItem("user", "cord");
+      window.location.href = "/dashboard";
     } else {
-      console.error("API response is not an array:", data);
+      alert("User not found");
     }
   };
 
@@ -77,7 +72,18 @@ const LoginComponent = () => {
     <>
       <header>
         <div className="topnav" id="myTopnav">
-          {/* Navigation links */}
+          <Link to="/">Home</Link>
+          <Link to="/about">About</Link>
+          <Link className="active" to="/signup">
+            SignUp
+          </Link>
+          <Link to="/login">Login</Link>
+          <Link to="/services">Services</Link>
+          <Link to="https://johngreesh12.wordpress.com/">Blog</Link>
+          <Link to="/contact">Contact</Link>
+          <Link to="#" className="icon" onClick={myFunction}>
+            <GiHamburgerMenu />
+          </Link>
         </div>
       </header>
       <div className="auth-container col">
@@ -124,9 +130,7 @@ const LoginComponent = () => {
       </div>
       <footer>
         <p>© 2023 Campus Flow. All Rights Reserved. | Designed by Group 13</p>
-        <div className="social-icons">
-          {/* Social icons */}
-        </div>
+        <div className="social-icons">{/* Social icons */}</div>
       </footer>
     </>
   );
