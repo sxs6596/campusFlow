@@ -46,6 +46,8 @@ const LoginComponent = () => {
       (u) => u.email === emailData && u.password === passwordData
     );
     localStorage.setItem("id", user.id);
+    localStorage.setItem("Lname", user.name);
+    localStorage.setItem("Lemail", user.email);
     console.log(
       `user matched :${user.email} and ${user.password} and type of user : ${user.user}`
     );
