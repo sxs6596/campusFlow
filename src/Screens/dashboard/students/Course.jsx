@@ -18,6 +18,7 @@ export default function Course() {
         }
         fetchData();
       }, [data]);
+      
     return <>
         <div className="course-header">
             <h2>All Courses</h2>

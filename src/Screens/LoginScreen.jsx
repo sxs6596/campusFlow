@@ -45,12 +45,10 @@ const LoginComponent = () => {
     const user = response.data.data.find(
       (u) => u.email === emailData && u.password === passwordData
     );
+    console.log(`testing user ${user}`);
     localStorage.setItem("id", user.id);
-    localStorage.setItem("Lname", user.name);
-    localStorage.setItem("Lemail", user.email);
-    console.log(
-      `user matched :${user.email} and ${user.password} and type of user : ${user.user}`
-    );
+    localStorage.setItem("first_name", user.first_name);
+    localStorage.setItem("email", user.email);
     if (user.user === "student") {
       localStorage.setItem("user", "student");
       window.location.href = "/dashboard";
