@@ -1,26 +1,29 @@
 import { FaSwatchbook } from "react-icons/fa"
 import Course from "../../../data/Course"
 import Image1 from "../../../assets/images/course1.jpg"
+import axios from "axios"
 import { useState } from "react"
 export default function CreateCourseScreen() {
     const [course, setCourse] = useState({
-        id: "",
-        title: Image1,
-        image: '',
-        description: "",
-        start_date:"",
+        id: '',
+        title: '',
+        image: 'course-1',
+        credit: '3',
+        description: '',
+        start_date:'',
         end_date: '',
-        enrolled: false
+        enrolled: '',
+        user_id: parseInt(localStorage.getItem('id'))
     })
     const handleData = e => {
         let value = e.target.value;
         let name = e.target.name;
-        setCourse(currentData => ({ ...currentData, [name]: value }))
+        setCourse(currentData => ({ ...currentData, [name]: value }))   
     }
-    const createCourse = (e) => {
-        e.preventDefault()
-        Course.push(course);
+    const createCourse = async (e) => {
+        e.preventDefault();
         alert("Course Created");
+        const response = await axios.post("https://rxk4239.uta.cloud/addcourse.php",course);
     }
     return <>
         <div>

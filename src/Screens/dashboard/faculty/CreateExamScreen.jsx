@@ -1,6 +1,6 @@
 import { FaSwatchbook } from "react-icons/fa"
 import { useState } from "react"
-import ExamData from "../../../data/ExamData"
+import axios from 'axios';
 export default function CreateExamScreen(){
     const [exam, setExam] = useState({
         examId: "",
@@ -13,9 +13,10 @@ export default function CreateExamScreen(){
         let value = e.target.value
         setExam(currentData => ({...currentData, [name]: value}))
     }
-    const createCourse = (e) => {
+    const createCourse = async(e) => {
         e.preventDefault()
-        ExamData.push(exam)
+        const response  = await axios.post("https://rxk4239.uta.cloud/exam.php", exam);
+        console.log(response);
         alert("Exam Created")
     }
     return <>
@@ -41,7 +42,7 @@ export default function CreateExamScreen(){
                     <input type="date" name="examDate" className="input" placeholder="Exam ID" onChange={handleExamData} required />
                 </div>
                 <button className="button">
-                    Create Course
+                    Create Exam
                 </button>
             </form>
         </div>
