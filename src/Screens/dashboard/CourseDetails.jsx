@@ -1,20 +1,40 @@
 import Course from "../../data/Course"
 import "./styles/CourseDetails.css"
 import { useParams,Link } from "react-router-dom"
+import { useState } from "react";
+import axios from 'axios';
+import { useContext } from "react";
+import User from "../../data/User";
 import CourseNotFound from "../../Components/dashboard/CourseNotFound"
 export default function CourseDetails(){
+    const {id, setID} = useContext(User);
+    const [result, setResult] = useState(null);
     let {courseId} = useParams()
-    let fetcher = ()=>{
-        return Course.find((item)=>{
+    // let fetcher =  ()=>{
+    //     return response.data.data.find((item)=>{
+    //         if(item.id==courseId){
+    //             console.log(item);
+    //             return item
+    //         }else{
+    //             return null
+    //         }
+    //     })
+    // }
+    const fetcher = async ()=>{
+        const response = await axios.get("https://rxk4239.uta.cloud/courses.php");
+        response.data.data.find((item)=>{
             if(item.id==courseId){
-                return item
+                setResult(item);
+                return item;
             }else{
                 return null
             }
         })
     }
-    let result = fetcher()
+    let results = fetcher()
+    console.log(`result is ${result}`);
     return <>
+        <h3>Logged in user id is : {id}</h3>
         <div className="row">
             <div class="aside-course-nav col">
                 <Link to="/dashboard">Home</Link>

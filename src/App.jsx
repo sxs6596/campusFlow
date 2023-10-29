@@ -56,13 +56,15 @@ import CourseReview from "./Screens/dashboard/CourseReview";
 import Feedback from "./Screens/dashboard/cord/Feedback";
 import Troubleshoot from  "./Screens/dashboard/admin/Troubleshoot";
 import StudentGradesBar from "./Components/dashboard/StudentGradesBar"
+import {AppContext} from "./AppContext"
 
 export default function App() {
-  let [user, setUser] = useState(localStorage.getItem("user"))
+  let [user, setUser] = useState(localStorage.getItem("user"));
+  let [id, setId] = useState(localStorage.getItem("id"));
   console.log("app", user)
   return <>
     <BrowserRouter>
-      <User.Provider value={{ user, setUser }}>
+      <User.Provider value={{ user, setUser, id, setId }}>
         <ChatBot />
         <Routes>
           <Route path="/" element={<HomeScreen />} />

@@ -45,6 +45,7 @@ const LoginComponent = () => {
     const user = response.data.data.find(
       (u) => u.email === emailData && u.password === passwordData
     );
+    localStorage.setItem("id", user.id);
     console.log(
       `user matched :${user.email} and ${user.password} and type of user : ${user.user}`
     );

@@ -1,7 +1,23 @@
 import CourseCard from "../../../Components/dashboard/CourseCard";
 import Course from "../../../data/Course";
+import {useState, useEffect} from "react";
 import "./styles/Index.css";
+import axios from 'axios';
 export default function Index() {
+
+    const [data, setData] = useState([]);
+    useEffect(() => {
+        async function fetchData() {
+          try {
+            const response = await axios.post(
+              "https://rxk4239.uta.cloud/enrolledget.php", {user_id: parseInt(localStorage.getItem("id"))});
+            console.log(response);
+          } catch (error) {
+            console.error("Error fetching data:", error);
+          }
+        }
+        fetchData();
+      }, [data]);
     return <>
         <div className="enrolled-header row">
             <div>

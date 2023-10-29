@@ -1,7 +1,18 @@
 import { Link } from "react-router-dom";
 import "./styles/CourseCard.css";
-
+import User from "../../data/User";
+import axios from 'axios';
+import { useContext, useState } from "react";
 export default function CourseCard(prop) {
+    const { id, setID } = useContext(User);
+    const [data, setData] = useState({});
+    const handleEnroll = async ()=>{
+        const course_id = parseInt(prop.id);
+        const user_id = parseInt(id);
+        setData({user_id, course_id});
+        console.log(`data is ${data.user_id} and ${data.course_id}`);
+        const response = await axios.post("https://rxk4239.uta.cloud/enrolledcourses.php",data);
+    }
     return <>
         <div className="course-card" data-aos="fade-up"
             data-aos-duration="2000">
@@ -15,7 +26,7 @@ export default function CourseCard(prop) {
                         prop.enrolled === true ?
                             <Link to="/dashboard/grades" className="course-tag"> Report </Link>
                             :
-                            <Link to="#" className="course-tag"> Enroll </Link>
+                            <Link to="#" className="course-tag" onClick={handleEnroll}> Enroll </Link>
                     }
                     {
                         prop.userType === "admin" && <>
@@ -24,6 +35,7 @@ export default function CourseCard(prop) {
                         </>
                     }
                     <Link to={"/dashboard/course/" + prop.id} className="course-tag"> About </Link>
+
                 </div>
             </div>
         </div>
