@@ -27,6 +27,7 @@ import ServicesScreen from "./Screens/ServicesScreen";
 import ContactScreen from "./Screens/ContactScreen";
 import LoginScreen from "./Screens/LoginScreen";
 import SignupScreen from "./Screens/SignupScreen";
+import StudentGrades from "./Screens/dashboard/StudentGrades"
 import User from "./data/User";
 import Discussion from "./Screens/dashboard/students/Discussion";
 import ExamScreen from "./Screens/dashboard/ExamScreen";
@@ -102,6 +103,7 @@ export default function App() {
                 <Route path="message/cord" element={<CordMessage />} />
                 <Route path="course/:courseId" element={<CourseDetails />} />
                 <Route path="create-exam" element={<CreateExamScreen />} />
+                <Route path="StudentGrades" element={<StudentGrades />} />
               </>
             }
             {

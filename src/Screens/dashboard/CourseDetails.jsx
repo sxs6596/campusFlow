@@ -25,6 +25,7 @@ export default function CourseDetails(){
         response.data.data.find((item)=>{
             if(item.id==courseId){
                 setResult(item);
+                localStorage.setItem("courseId",item.id);
                 return item;
             }else{
                 return null
@@ -40,7 +41,7 @@ export default function CourseDetails(){
                 <Link to="/dashboard">Home</Link>
                 <Link to="/dashboard/grades">Grades</Link>
                 <Link to="/dashboard/discussion">Discussion</Link>
-                <Link to="/dashboard/courses">All Courses</Link>
+                <Link to="/dashboard/StudentGrades">Student Grades</Link>
 
             </div>
            <div className="col">
