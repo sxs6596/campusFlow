@@ -1,7 +1,11 @@
 import { Link } from "react-router-dom"
 import { GiHamburgerMenu } from "react-icons/gi"
+import {useState} from 'react';
 import "./styles/Contact.css"
+import emailjs from 'emailjs-com';
 export default function ContactScreen() {
+    const [mesasge, setMessage] = useState("");
+    const [email, setEmail] = useState("");
     function myFunction() {
         let x = document.getElementById("myTopnav");
         if (x.className === "topnav") {
@@ -11,6 +15,32 @@ export default function ContactScreen() {
             x.className = "topnav";
             console.log("not responsive")
         }
+    }
+    const handleSubmit = (e)=>{
+       e.preventDefault();
+       const templateParams = {
+        userEmail: email,
+        message:mesasge
+      };
+  
+      emailjs
+        .send(
+          'service_kgjr1x7',   // Your service ID here
+          'template_cngt71m',  // Your template ID here
+          templateParams,
+          'EQvttVRz2bMq04l5a'       // Your user ID here
+        )
+        .then(
+          (result) => {
+            console.log(result.text);
+            setMessage('Thanks for signing up! Please check your email.');
+          },
+          (error) => {
+            console.log(error.text);
+            setMessage('Failed to send the email. Error: ', error.text);
+          }
+        );
+
     }
     return <>
         <header>
@@ -38,18 +68,18 @@ export default function ContactScreen() {
                 <div className="contact-internal row">
                     <div className="contact-internal1 column">
                         <h3>
-                            You can reach us at team13@mavs.uta.edu
+                            You can reach us at sxs6596@mavs.uta.edu
                         </h3>
                     </div>
                     <div className="contact-internal2 column">
-                        <form action="">
+                        <form action="" onSubmit={handleSubmit}>
                             <label htmlFor="email">Email</label>
-                            <input className="input2" id="fname" name="firstname" placeholder="Your Email.." type="text" />
+                            <input className="input2" id="fname" name="firstname" placeholder="Your Email.." type="text"  onChange={(e)=>setEmail(e.target.value)}/>
                             <label htmlFor="lname">Last Name</label>
                             <input className="input2" id="lname" name="lastname" placeholder="Your last name.." type="text" />
                             <label htmlFor="subject">Subject</label>
                             <textarea className="textarea" id="subject" name="subject" placeholder="Write something.."
-                                style={{ height: "80px" }}></textarea>
+                                style={{ height: "80px" }} onChange={(e)=>setMessage(e.target.value)}></textarea>
                             <input className="button" type="submit" value="Submit"  />
                         </form>
                     </div>

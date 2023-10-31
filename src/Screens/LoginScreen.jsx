@@ -20,6 +20,7 @@ const LoginComponent = () => {
           "https://rxk4239.uta.cloud/db_test.php"
         );
         setData(response.data.data);
+        console.log(response.data.data);
       } catch (error) {
         console.error("Error fetching data:", error);
       }
