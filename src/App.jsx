@@ -61,11 +61,12 @@ import {AppContext} from "./AppContext"
 
 export default function App() {
   let [user, setUser] = useState(localStorage.getItem("user"));
+  const [loggedInUser, setLoggedInUser] = useState(null);
   let [id, setId] = useState(localStorage.getItem("id"));
   console.log("app", user)
   return <>
     <BrowserRouter>
-      <User.Provider value={{ user, setUser, id, setId }}>
+      <User.Provider value={{ user, setUser, id, setId, loggedInUser, setLoggedInUser}}key={loggedInUser ? loggedInUser.id : 0}>
         <ChatBot />
         <Routes>
           <Route path="/" element={<HomeScreen />} />

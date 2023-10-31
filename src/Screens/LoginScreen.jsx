@@ -5,9 +5,12 @@ import { ImLock, ImMail } from "react-icons/im";
 import axios from "axios";
 import "./styles/Auth.css";
 import "./styles/HomeScreen.css";
+import {useContext} from 'react';
+import User from '../data/User';
 
 // Define LoginComponent outside of LoginScreen
 const LoginComponent = () => {
+  const {loggedInUser, setLoggedInUser} = useContext(User);
   const [emailData, setEmail] = useState("");
   const [passwordData, setPassword] = useState("");
   const [data, setData] = useState([]);
@@ -43,10 +46,11 @@ const LoginComponent = () => {
     e.preventDefault();
     const response = await axios.get("https://rxk4239.uta.cloud/db_test.php");
 
-    const user = response.data.data.find(
+    let user = response.data.data.find(
       (u) => u.email === emailData && u.password === passwordData
     );
-    console.log(`testing user ${user}`);
+    console.log(`logged in user is ${user}`);
+    setLoggedInUser(user);  
     localStorage.setItem("id", user.id);
     localStorage.setItem("first_name", user.first_name);
     localStorage.setItem("email", user.email);
