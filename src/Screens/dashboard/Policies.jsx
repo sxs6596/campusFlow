@@ -1,122 +1,123 @@
 import React, { useState } from 'react';
 
-const cardStyles = {
-    border: '1px solid #ccc',
-    borderRadius: '5px',
-    padding: '1rem',
-    marginBottom: '1rem'
-};
+function PolicyComponent() {
+    const [showForm, setShowForm] = useState(false);
+    const [policies, setPolicies] = useState([]);
 
-const cardBodyStyles = {
-    display: 'flex',
-    flexDirection: 'column',
-    alignItems: 'flex-start'
-};
-
-const textStyles = {
-    fontSize: '1.2rem',
-    fontWeight: 'bold',
-    color: '#333',
-    marginBottom: '1rem'
-};
-
-const editButtonStyles = {
-    backgroundColor: '#007bff',
-    color: '#fff',
-    border: 'none',
-    borderRadius: '5px',
-    padding: '0.5rem 1rem',
-    marginRight: '1rem',
-    display:'inline-block'
-};
-
-const deleteButtonStyles = {
-    backgroundColor: '#dc3545',
-    color: '#fff',
-    border: 'none',
-    borderRadius: '5px',
-    padding: '0.5rem 1rem'
-};
-const addButtonStyles = {
-    backgroundColor: '#28a745',
-    color: '#fff',
-    border: 'none',
-    borderRadius: '5px',
-    padding: '0.5rem 1rem',
-    marginRight: '1rem'
-  };
-export default function Policies() {
-    const [isEditing, setIsEditing] = useState(false);
-    const [policyText, setPolicyText] = useState('Plagiarism is strictly prohibited. Any work submitted by a student must be their own original work. Copying another person\'s work or ideas without proper citation will result in disciplinary action.');
-
-    const handleEdit = () => {
-        setIsEditing(true);
+    const handleAddPolicy = (policy) => {
+        // setPolicies([...policies, policy]);
+        console.log(policy);
+        setShowForm(false);
     };
 
-    const handleSave = (event) => {
-        event.preventDefault();
-        setIsEditing(false);
+    const handleEdit = (id) => {
+        console.log("Editing policy with id:", id);
     };
 
-    const handleCancel = () => {
-        setIsEditing(false);
-    };
-
-    const handleInputChange = (event) => {
-        setPolicyText(event.target.value);
-    };
-    const renderCard = () => {
-        return (
-            <div>
-                <button styles={{addButtonStyles}}>Add New Policy</button>
-                <div style={cardStyles}>
-                    <div style={cardBodyStyles}>
-                        <h5>Plagiarism Policy</h5>
-                        <p style={textStyles}>{policyText}</p>
-                        <button style={editButtonStyles} onClick={handleEdit}>Edit</button>
-                        <button style={deleteButtonStyles}>Delete</button>
-                    </div>
-                </div>
-                <div style={cardStyles}>
-                <div style={cardBodyStyles}>
-                    <h5>Assignment Policy</h5>
-                    <p style={textStyles}>{policyText}</p>
-                    <button style={editButtonStyles} onClick={handleEdit}>Edit</button>
-                    <button style={deleteButtonStyles}>Delete</button>
-                </div>
-                </div>
-                <div style={cardStyles}>
-                <div style={cardBodyStyles}>
-                    <h5>Grading Policy</h5>
-                    <p style={textStyles}>{policyText}</p>
-                    <button style={editButtonStyles} onClick={handleEdit}>Edit</button>
-                    <button style={deleteButtonStyles}>Delete</button>
-                </div>
-                </div>
-            </div>
-        );
-    };
-
-    const renderEditor = () => {
-        return (
-            <div style={cardStyles}>
-                <div style={cardBodyStyles}>
-                    <h5>Plagiarism Policy</h5>
-                    <form onSubmit={handleSave}>
-                        <textarea value={policyText} onChange={handleInputChange} />
-                        <button type="submit">Save</button>
-                        <button type="button" onClick={handleCancel}>Cancel</button>
-                    </form>
-                </div>
-            </div>
-        );
+    const handleDelete = (id) => {
+        setPolicies(policies.filter(p => p.id !== id));
     };
 
     return (
-        <div className="container">
-            <section className="section">
-                {isEditing ? renderEditor() : renderCard()}
-            </section>
+        <div>
+            <style>{`
+                /* Table styles */
+                .table {
+                    width: 100%;
+                    border-collapse: collapse;
+                }
+
+                .table th, .table td {
+                    padding: 10px 15px;
+                    border: 1px solid #ddd;
+                    text-align: left;
+                }
+
+                .table th {
+                    background-color: #f5f5f5;
+                }
+
+                /* Button styles */
+                .btn {
+                    display: inline-block;
+                    padding: 6px 12px;
+                    margin-bottom: 0;
+                    font-size: 14px;
+                    font-weight: 400;
+                    line-height: 1.42857143;
+                    text-align: center;
+                    white-space: nowrap;
+                    vertical-align: middle;
+                    cursor: pointer;
+                    user-select: none;
+                    border: 1px solid transparent;
+                    border-radius: 4px;
+                    background-color: #007bff;
+                    color: #fff;
+                    text-decoration: none;
+                }
+
+                .btn:hover {
+                    background-color: #0056b3;
+                }
+            `}</style>
+
+            <button className="btn" onClick={() => setShowForm(!showForm)}>Create Policy</button>
+            
+            {showForm && (
+                <PolicyForm onSubmit={handleAddPolicy} />
+            )}
+            
+            <PolicyTable policies={policies} onEdit={handleEdit} onDelete={handleDelete} />
         </div>
     );
 }
+
+function PolicyForm({ onSubmit }) {
+    const [policyText, setPolicyText] = useState("");
+
+    const handleSubmit = (e) => {
+        e.preventDefault();
+        if(policyText) {
+            onSubmit({ id: Date.now(), text: policyText });
+            setPolicyText("");
+        }
+    };
+
+    return (
+        <form onSubmit={handleSubmit}>
+            <input 
+                type="text" 
+                value={policyText} 
+                onChange={e => setPolicyText(e.target.value)} 
+                placeholder="Enter policy text"
+            />
+            <button type="submit" className="btn">Submit</button>
+        </form>
+    );
+}
+
+function PolicyTable({ policies, onEdit, onDelete }) {
+    return (
+        <table className="table">
+            <thead>
+                <tr>
+                    <th>Plagiarism Policy</th>
+                    <th>Edit</th>
+                    <th>Delete</th>
+                </tr>
+            </thead>
+            <tbody>
+                {policies.map(policy => (
+                    <tr key={policy.id}>
+                        <td>{policy.text}</td>
+                        <td><button className="btn" onClick={() => onEdit(policy.id)}>Edit</button></td>
+                        <td><button className="btn" onClick={() => onDelete(policy.id)}>Delete</button></td>
+                    </tr>
+                ))}
+            </tbody>
+        </table>
+    );
+}
+
+export default PolicyComponent;
