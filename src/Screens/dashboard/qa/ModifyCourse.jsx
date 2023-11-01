@@ -1,5 +1,6 @@
 import { BsFillJournalBookmarkFill } from "react-icons/bs";
 import { useState, useEffect } from "react";
+import axios from "axios";
 import "./styles/ModifyCourse.css";
 
 export default function ModifyCourse() {
@@ -19,14 +20,15 @@ export default function ModifyCourse() {
             setCourse(data.data);
         };
         getCourses();
-    }, []);
+    }, [course]);
 
-    function courseModified(e) {
+    async function courseModified(e) {
         e.preventDefault();
         alert("Course Modified");
-        console.log(`updated data is :${newData.id}`);
+        const response = await axios.post('https://rxk4239.uta.cloud/updatecourses.php',newData);
+        // console.log(`updated data is :${newData.id}`);
     }
-
+    
     function deleteCourse(e, id) {
         setCourse(course.filter((item) => item.id !== id));
         alert("Course Deleted");
@@ -36,6 +38,7 @@ export default function ModifyCourse() {
     t.title === item.title
   ))
 )
+    
     return (
         <>
             <div className="qa-course-header row">
