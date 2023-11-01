@@ -58,7 +58,7 @@ import Feedback from "./Screens/dashboard/cord/Feedback";
 import Troubleshoot from  "./Screens/dashboard/admin/Troubleshoot";
 import StudentGradesBar from "./Components/dashboard/StudentGradesBar"
 import {AppContext} from "./AppContext"
-
+import CommonGradesBar from "./CommonGrades"
 export default function App() {
   let [user, setUser] = useState(localStorage.getItem("user"));
   const [loggedInUser, setLoggedInUser] = useState(null);
@@ -109,7 +109,7 @@ export default function App() {
             }
             {
               user === "cord" && <>
-                <Route path="" element={<IndexCord />} />
+                <Route path="" element={<CommonGradesBar/>} />
                 <Route path="grades" element={<Grades />} />
                 <Route path="message/admin" element={<AdminMessage />} />
                 <Route path="enquiries" element={<Enquiries />} />
@@ -122,7 +122,7 @@ export default function App() {
             }
             {
               user === "quality-admin" && <>
-                <Route path="" element={<IndexQA />} />
+                <Route path="" element={<CommonGradesBar/>} />
                 <Route path="grades" element={<Grades />} />
                 <Route path="manage-course" element={<ModifyCourse />} />
                 <Route path="course/:courseId" element={<CourseDetails />} />
@@ -137,7 +137,7 @@ export default function App() {
             }
             {
               user === "admin" && <>
-                <Route path="" element={ <IndexAdmin />} />
+                <Route path="" element={ <CommonGradesBar/>} />
                 <Route path="grades" element={<Grades />} />
                 <Route path="manage-students" element={<ManageStudent userType={user} />} />
                 <Route path="manage-students/edit" element={<StudentEdit />}/>
