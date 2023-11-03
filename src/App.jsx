@@ -1,5 +1,5 @@
 import "./App.css"
-import { useEffect, useState } from "react"
+import { useEffect, useState, Suspense, lazy } from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom"
 import HomeScreen from "./Screens/HomeScreen"
 import Policies from "./Screens/dashboard/Policies"
@@ -29,19 +29,19 @@ import LoginScreen from "./Screens/LoginScreen";
 import SignupScreen from "./Screens/SignupScreen";
 import StudentGrades from "./Screens/dashboard/StudentGrades"
 import User from "./data/User";
-import Discussion from "./Screens/dashboard/students/Discussion";
+
 import ExamScreen from "./Screens/dashboard/ExamScreen";
 import IndexAdmin from "./Screens/dashboard/admin/IndexAdmin";
 import AdminAccount from  "./Screens/dashboard/admin/Accounts"
 import StudentProfile from "./Screens/dashboard/admin/StudentProfile";
 import FacultyProfile from "./Screens/dashboard/admin/FacultyProfile";
 import Settings from "./Screens/dashboard/Settings";
-import AdminMessage from "./Screens/dashboard/cord/AdminMesage";
-import Enquiries from "./Screens/dashboard/cord/Enquiries";
+
+
 import IndexCord from "./Screens/dashboard/cord/IndexCord";
 import Complain from "./Screens/dashboard/students/Complain";
 import IndexQA from "./Screens/dashboard/qa/IndexQA";
-import FacultyMessage from "./Screens/dashboard/qa/FacultyMessage";
+
 import Delete from "./Screens/Delete";
 import ModifyCourse from "./Screens/dashboard/qa/ModifyCourse";
 import StudentEdit from "./Screens/dashboard/admin/StudentEdit";
@@ -49,7 +49,6 @@ import FacultyEdit from "./Screens/dashboard/admin/FacultyEdit";
 import PasswordChange from "./Screens/dashboard/PasswordChange";
 import NameChange from "./Screens/dashboard/NameChange";
 import LogOut from "./Screens/dashboard/LogOut";
-import CordMessage from "./Screens/dashboard/faculty/CordMessage";
 import ChatBot from "./Components/ChatBot";
 import ChatComponent from "./Components/dashboard/ChatComponent";
 import ForgetPassword from "./Screens/ForgetPassword";
@@ -59,6 +58,12 @@ import Troubleshoot from  "./Screens/dashboard/admin/Troubleshoot";
 import StudentGradesBar from "./Components/dashboard/StudentGradesBar"
 import {AppContext} from "./AppContext"
 import CommonGradesBar from "./CommonGrades"
+const CordMessage = lazy(() => import("./Screens/dashboard/faculty/CordMessage"));
+const AdminMessage = lazy(() => import("./Screens/dashboard/cord/AdminMessage"));
+const Discussion = lazy(() => import("./Screens/dashboard/students/Discussion"));
+const FacultyMessage = lazy(() => import("./Screens/dashboard/qa/FacultyMessage"));
+const Enquiries = lazy(() => import("./Screens/dashboard/cord/Enquiries"));
+
 export default function App() {
   let [user, setUser] = useState(localStorage.getItem("user"));
   const [loggedInUser, setLoggedInUser] = useState(null);
@@ -68,6 +73,7 @@ export default function App() {
     <BrowserRouter>
       <User.Provider value={{ user, setUser, id, setId, loggedInUser, setLoggedInUser}}key={loggedInUser ? loggedInUser.id : 0}>
         <ChatBot />
+        <Suspense fallback={<div>Loading...</div>}>
         <Routes>
           <Route path="/" element={<HomeScreen />} />
           <Route path="/about" element={<AboutPage />} />
@@ -161,6 +167,7 @@ export default function App() {
           <Route path="/delete" element={<Delete />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
+        </Suspense>
       </User.Provider>
     </BrowserRouter>
   </>

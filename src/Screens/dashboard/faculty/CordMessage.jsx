@@ -1,94 +1,325 @@
-import { useState, useEffect } from "react";
-import "../styles/MessageScreen.css";
-import OpenAI from "openai";
+import React, { useState, useEffect } from "react";
+import "./CordMessage.css";
+import axios from "axios";
 
-const openai = new OpenAI({
-    apiKey: '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',
-    dangerouslyAllowBrowser: true
-});
+axios.defaults.headers.post["Content-Type"] = "application/json";
+axios.defaults.withCredentials = true;
+axios.defaults.crossDomain = true;
 
-const OpenAIMessage = async (prompt)=>{
-    const chatCompletion = await openai.chat.completions.create({
-        messages: [{ role: 'user', content: "Your task is to act like a Co-ordinator at UTA university and answer the faculty queries in strictly one simple line"+prompt }],
-        model: 'gpt-3.5-turbo',
-    });
-    const data = chatCompletion.choices[0].message.content;
-    return data;
-}
+function CordMessage() {
+  const [formData, setFormData] = useState({
+    role: "student",
+    customOption: "",
+  });
 
-export default function CordMessage() {
-    const [messages, setMessages] = useState([]);
-    const [replyMessages, setReplyMessages] = useState([]);
-    const handleSendMessage = async (e) => {
-        e.preventDefault();
-        const messageInput = e.target.elements.message;
-        const message = messageInput.value.trim();
-        if (message) {
-            setMessages([...messages, { text: message, sender: "admin" }]);
-            messageInput.value = "";
+  const [users, setUsers] = useState([]);
+  const [chatMessages, setChatMessages] = useState([]);
+  const [currentMessage, setCurrentMessage] = useState("");
+  const [chatVisible, setChatVisible] = useState(false);
+  const [selectedUserId, setSelectedUserId] = useState(null);
+  const [selectedUserRole, setSelectedUserRole] = useState(null);
+  const [previousMessages, setPreviousMessages] = useState([]);
+  const handleInputChange = (event) => {
+    const { name, value } = event.target;
+    setFormData((prevState) => ({
+      ...prevState,
+      [name]: value,
+    }));
+    if (name === "customOption") {
+      const selectedUser = users.find((user) => user.name === value);
+      setSelectedUserId(selectedUser ? selectedUser.id : null);
+    }
+  };
+  useEffect(() => {
+    // Fetching previous chat messages
+    const fetchPreviousMessages = async () => {
+      if (!selectedUserId) return; // Exit if there's no selected user
+
+      const headers = {
+        "Content-Type": "application/json",
+      };
+
+      const prevSubmitData = {
+        chat_to_user_id: localStorage.getItem("id"),
+        chat_from_user_id: selectedUserId,
+      };
+
+      try {
+        const response = await axios.post(
+          "https://sxs6596.uta.cloud/test_chatto.php",
+          prevSubmitData,
+          {
+            headers: headers,
+            withCredentials: true,
+          }
+        );
+
+        if (
+          response.data &&
+          response.data.status === "success" &&
+          Array.isArray(response.data.messages) // Check if messages array exists
+        ) {
+          console.log(
+            `Previous messages for user ${selectedUserId}:`,
+            response.data.messages
+          );
+          setPreviousMessages(response.data.messages);
         }
-        console.log(`message we are sending is ${message}`)
-        const reply = await OpenAIMessage(message);
-        console.log(`reply we got is ${reply}`)
-        setReplyMessages([...replyMessages, { text: reply }]);
+      } catch (error) {
+        console.error("Error during the Axios request:", error);
+      }
     };
 
-    return (
-        <>
-            <div className="message-container">
-                <div className="message-header row">
-                    <h3>Cordinator</h3>
-                </div>
-                <div className="message-item-container">
-                    {messages.map((message, index) => (
-                        <div
-                            key={index}
-                            className={`message-item ${
-                                message.sender === "admin" ? "admin-message" : "user-message"
-                            }`}
-                            style={{
-                                alignSelf: message.sender === "admin" ? "flex-end" : "flex-start"
-                            }}
-                        >
-                            {message.text}
-                        </div>
-                    ))}
-                    {replyMessages.map((message, index)=>(
-                        <div key={index} className="message-item" style={{textAlign:'right'}}>
-                         {console.log(`message we got is at : ${message.text}`)}
-                         <p>{message.text}</p>
-                        </div>
-                    ))}
-                </div>
-                <div className="message-form">
-                    <form onSubmit={handleSendMessage}>
-                        <input
-                            className="input"
-                            type="text"
-                            name="message"
-                            placeholder="Enter Your Message Here"
-                            required
-                        />
-                        <button
-                            type="submit"
-                            style={{
-                                backgroundColor: "lightblue",
-                                color: "#333",
-                                border: "1px solid #333",
-                                borderRadius: "4px",
-                                padding: "8px 16px",
-                                fontSize: "16px",
-                                cursor: "pointer",
-                                height: "30px",
-                                transition: "all 0.3s ease-in-out",
-                                align:"right"
-                            }}
-                        >
-                            Send
-                        </button>
-                    </form>
-                </div>
+    fetchPreviousMessages();
+  }, [selectedUserId]);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      const role = formData.role;
+      setSelectedUserRole(role);
+      const headers = {
+        "Content-Type": "application/json",
+      };
+
+      try {
+        const response = await axios.post(
+          "https://sxs6596.uta.cloud/test_getformdata.php",
+          { role },
+          {
+            headers: headers,
+            withCredentials: true,
+          }
+        );
+
+        if (
+          response.data &&
+          response.data.status === "success" &&
+          Array.isArray(response.data.users)
+        ) {
+          setUsers(response.data.users);
+        }
+      } catch (error) {
+        console.error("Error during the Axios request:", error);
+      }
+    };
+
+    fetchData();
+  }, [formData]);
+
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    setChatVisible(true);
+  };
+
+  const handleSendMessage = async () => {
+    if (selectedUserId && currentMessage) {
+      const newMessage = {
+        userId: selectedUserId,
+        message: currentMessage,
+      };
+      setChatMessages([...chatMessages, newMessage]);
+
+      try {
+        // Making the axios.post request as per the requirement
+        const postData = {
+          chat_from_user_id: localStorage.getItem("id"),
+          chat_to_user_id: selectedUserId,
+          chat_from_user_role: localStorage.getItem("user"),
+          chat_to_user_role: selectedUserRole,
+          chat_message: currentMessage,
+        };
+        const headers = {
+          "Content-Type": "application/json",
+        };
+
+        try {
+          const response = await axios.post(
+            "https://sxs6596.uta.cloud/test_chatfrom.php",
+            postData,
+            {
+              headers: headers,
+              withCredentials: true,
+            }
+          );
+
+          if (
+            response.data &&
+            response.data.status === "success" &&
+            Array.isArray(response.data.users)
+          ) {
+            setUsers(response.data.users);
+          }
+        } catch (error) {
+          console.error("Error during the Axios request:", error);
+        }
+
+        // You can handle the response or errors as needed
+        // if (response.data.success) {
+        //   console.log("Message sent successfully");
+        // } else {
+        //   console.error("Error sending message:", response.data.error);
+        // }
+      } catch (error) {
+        console.error("Error during the Axios request:", error);
+      }
+
+      setCurrentMessage("");
+    } else {
+      console.log("No user selected or no message entered");
+    }
+  };
+
+  return (
+    <div>
+        <h1>Co-ordinator Chat</h1>
+        <div className="CordMessage">
+          <form onSubmit={handleSubmit}>
+            <div className="select-container">
+              <label>Role:</label>
+              <select
+                name="role"
+                value={formData.role}
+                onChange={handleInputChange}
+              >
+                <option value="student">Student</option>
+                <option value="admin">Admin</option>
+                <option value="quality-admin">QA Officer</option>
+                <option value="cord">Co-ordinator</option>
+                <option value="faculty">Faculty</option>
+              </select>
             </div>
-        </>
-    );
+            <div className="select-container">
+              <label>Custom:</label>
+              <select
+                name="customOption"
+                value={formData.customOption}
+                onChange={handleInputChange}
+              >
+                <option value="">Select...</option>
+                {users.map((user) => (
+                  <option key={user.id} value={user.name}>
+                    {user.name}
+                  </option>
+                ))}
+              </select>
+            </div>
+            <div className="select-container">
+              <button type="submit">Start Chat</button>
+            </div>
+          </form>
+          {chatVisible && (
+            <div
+              className="chatbot-container"
+              style={{
+                position: "fixed",
+                bottom: "10px",
+                right: "10px",
+                width: "300px",
+                background: "#f9f9f9",
+                boxShadow: "0 0 10px rgba(0, 0, 0, 0.2)",
+                borderRadius: "8px",
+                overflow: "hidden",
+              }}
+            >
+              <div
+                className="chat-header"
+                style={{
+                  padding: "10px 20px",
+                  backgroundColor: "#007BFF",
+                  color: "white",
+                  display: "flex",
+                  justifyContent: "space-between",
+                  alignItems: "center",
+                }}
+              >
+                Chatbot
+                <button
+                  onClick={() => setChatVisible(false)}
+                  style={{
+                    background: "transparent",
+                    border: "none",
+                    color: "white",
+                    fontSize: "20px",
+                    cursor: "pointer",
+                  }}
+                >
+                  ×
+                </button>
+              </div>
+              <div
+                className="chat-container"
+                style={{
+                  maxHeight: "200px",
+                  overflowY: "scroll",
+                  padding: "10px",
+                  borderBottom: "1px solid #ddd",
+                }}
+              >
+                {previousMessages.map((msg, index) => (
+                  <div
+                    key={index}
+                    className="previous-message"
+                    style={{
+                      padding: "8px 0",
+                      borderBottom: "1px solid #eee",
+                      textAlign: "left",
+                    }}
+                  >
+                    <strong>Receive: {msg.userId}</strong>: {msg}
+                  </div>
+                ))}
+                {chatMessages.map((msg, index) => (
+                  <div
+                    key={index}
+                    style={{
+                      padding: "8px 0",
+                      borderBottom: "1px solid #eee",
+                    }}
+                  >
+                    <strong>Sender: {msg.userId}</strong>: {msg.message}
+                  </div>
+                ))}
+              </div>
+              <div
+                className="chat-input-container"
+                style={{
+                  padding: "10px",
+                  borderTop: "1px solid #ddd",
+                  display: "flex",
+                  alignItems: "center",
+                }}
+              >
+                <input
+                  type="text"
+                  value={currentMessage}
+                  onChange={(e) => setCurrentMessage(e.target.value)}
+                  placeholder="Enter your message..."
+                  style={{
+                    padding: "10px",
+                    flexGrow: "1",
+                    marginRight: "10px",
+                    borderRadius: "4px",
+                    border: "1px solid #ddd",
+                  }}
+                />
+                <button
+                  onClick={handleSendMessage}
+                  style={{
+                    padding: "10px 15px",
+                    backgroundColor: "#007BFF",
+                    color: "white",
+                    border: "none",
+                    borderRadius: "4px",
+                    cursor: "pointer",
+                  }}
+                >
+                  Send
+                </button>
+              </div>
+            </div>
+          )}
+        </div>
+    </div>
+  );
 }
+export default CordMessage;

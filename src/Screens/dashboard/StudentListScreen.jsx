@@ -4,6 +4,7 @@ import axios from "axios"; // Import Axios
 import StudentCard from "../../Components/dashboard/StudentCard";
 
 export default function StudentListScreen() {
+  const userType = localStorage.getItem('user'); // Retrieve user type from localStorage
   const facultyUserId = parseInt(localStorage.getItem('id'));
   const [students, setStudents] = useState([]);
 
@@ -11,11 +12,16 @@ export default function StudentListScreen() {
     // Create an async function to make the POST request
     async function fetchData() {
       try {
-        // Prepare the data to be sent in the POST request
-        const postData = { faculty_user_id: facultyUserId };
+        // Determine the endpoint based on userType
+        const endpoint = (userType === 'cord') 
+            ? "https://rxk4239.uta.cloud/adminstudentlist.php"
+            : "https://rxk4239.uta.cloud/getStudents.php";
 
-        // Make a POST request to the PHP endpoint using Axios with async/await
-        const response = await axios.post("https://rxk4239.uta.cloud/getStudents.php", postData, {
+        // Prepare the data to be sent in the POST request
+        const postData = (userType !== 'cord' && facultyUserId) ? { faculty_user_id: facultyUserId } : {};
+
+        // Make a POST request to the determined endpoint using Axios with async/await
+        const response = await axios.post(endpoint, postData, {
           headers: {
             "Content-Type": "application/json",
           },
@@ -31,7 +37,7 @@ export default function StudentListScreen() {
 
     // Call the async fetchData function
     fetchData();
-  }, [facultyUserId]); // Include 'facultyUserId' in the dependency array
+  }, [facultyUserId, userType]); // Include 'facultyUserId' and 'userType' in the dependency array
 
   return (
     <>

@@ -1,12 +1,12 @@
 import React, { useState, useEffect } from "react";
-import "./FacultyMessage.css";
+import "./AdminMessage.css";
 import axios from "axios";
 
 axios.defaults.headers.post["Content-Type"] = "application/json";
 axios.defaults.withCredentials = true;
 axios.defaults.crossDomain = true;
 
-function FacultyMessage() {
+function AdminMessage() {
   const [formData, setFormData] = useState({
     role: "student",
     customOption: "",
@@ -171,8 +171,8 @@ function FacultyMessage() {
 
   return (
     <div>
-        <h1>Faculty Message</h1>
-        <div className="FacultyMessage">
+        <h1>Admin Message</h1>
+        <div className="AdminMessage">
           <form onSubmit={handleSubmit}>
             <div className="select-container">
               <label>Role:</label>
@@ -322,4 +322,4 @@ function FacultyMessage() {
     </div>
   );
 }
-export default FacultyMessage;
+export default AdminMessage;
