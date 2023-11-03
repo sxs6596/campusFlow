@@ -58,13 +58,6 @@ export default function Index() {
             <div>
                 <h2>Enrolled Courses</h2>
             </div>
-            <div className="seamster-option">
-                <select className="select" name="" id="">
-                    <option value="">Semester Fall 2022</option>
-                    <option value="">Semester Fall 2023</option>
-                    <option value="">Semester Fall 2024</option>
-                </select>
-            </div>
         </div>
         <div className="course-container row">
             {

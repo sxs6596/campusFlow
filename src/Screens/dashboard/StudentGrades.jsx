@@ -4,55 +4,63 @@ import './Table.css';
 
 const StudentGrades = () => {
   const [data, setData] = useState([]);
+  const [marksData, setMarksData] = useState([]);
   const [marks, setMarks] = useState(0);
-  const [userIds, setUserIds] = useState([]); // Add state for user_ids
-  const [courseId, setCourseId] = useState(''); // Add state for course_id
 
   useEffect(() => {
     async function sendDetails() {
-      console.log(`faculty id is ${parseInt(localStorage.getItem("id"))}`);
-      console.log(`course id is ${parseInt(localStorage.getItem("courseId"))}`);
       const response = await axios.post('https://rxk4239.uta.cloud/gradestudents.php', {
         faculty_user_id: parseInt(localStorage.getItem("id")),
         course_id: parseInt(localStorage.getItem("courseId"))
       });
       setData(response.data);
-      setUserIds(response.data.students.map((row) => row.user_id)); // Get user_ids
-      console.log(`response data students is : ${data} `);
+      fetchMarks(response.data.students.map(student => student.email));
     }
+
+    async function fetchMarks(emails) {
+      const courseId = parseInt(localStorage.getItem("courseId"));
+      const marksResponses = await Promise.all(emails.map(email => axios.post('https://rxk4239.uta.cloud/displaymarks.php', { email, course_id: courseId })));
+      setMarksData(marksResponses.map(res => res.data.marks));
+    }
+
     sendDetails();
   }, []);
 
   const handleSubmit = async (user_id, index) => {
-    const email = data.students[0].email;
+    const email = data.students[index].email;
+    const courseId = parseInt(localStorage.getItem("courseId"));
 
-
-     // Log the data before sending it to the backend
-    console.log('Sending data to backend:', {
-    email: email,
-    course_id: parseInt(localStorage.getItem("courseId")),
-    marks: marks
-  });
-    // Send user_id, course_id, and marks to the backend
-    try {
-      const response = await axios.post('https://rxk4239.uta.cloud/grades.php', {
+    // Data to be sent to the backend
+    const updateData = {
         email: email,
-        course_id: parseInt(localStorage.getItem("courseId")),
+        course_id: courseId,
         marks: marks
-      });
+    };
 
-      if (response.data.status === 'success') {
-        // Handle success, e.g., show a success message to the user
-        console.log('Marks updated successfully');
-      } else {
-        // Handle error, e.g., show an error message to the user
-        console.error('Failed to update marks');
-      }
+    // Log the data being sent to the backend
+    console.log('Sending to updategrades.php:', updateData);
+
+    try {
+        const response = await axios.post('https://rxk4239.uta.cloud/updategrades.php', updateData);
+
+        if (response.data.status === 'success') {
+            console.log('Marks updated successfully');
+            
+            // Fetch the updated mark for the student
+            const markResponse = await axios.post('https://rxk4239.uta.cloud/displaymarks.php', { email, course_id: courseId });
+            const updatedMarks = [...marksData];
+            updatedMarks[index] = markResponse.data.marks;
+            setMarksData(updatedMarks);
+
+        } else {
+            console.error('Failed to update marks');
+        }
     } catch (error) {
-      // Handle any network or server errors
-      console.error('An error occurred:', error);
+        console.error('An error occurred:', error);
     }
-  };
+};
+
+
 
   return (
     <div>
@@ -60,6 +68,7 @@ const StudentGrades = () => {
         <thead>
           <tr>
             <th>Email</th>
+            <th>Name</th>
             <th>Marks</th>
             <th>Update Marks</th>
             <th>Action</th>
@@ -71,6 +80,7 @@ const StudentGrades = () => {
               <tr key={row.user_id}>
                 <td>{row.email}</td>
                 <td>{row.first_name}</td>
+                <td>{marksData[index]}</td>
                 <td>
                   <input
                     type="text"

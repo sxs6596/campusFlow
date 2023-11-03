@@ -29,8 +29,7 @@ export default function CourseCard(prop) {
                             <Link to="#" className="course-tag" onClick={handleEnroll}> Enroll </Link>
                     }
                     {
-                        prop.userType === "admin" && <>
-                            <Link to="#" className="course-tag"> Edit </Link>
+                        prop.userType !== "admin" && <>
                             <Link to="#" className="course-tag"> Delete </Link>
                         </>
                     }
