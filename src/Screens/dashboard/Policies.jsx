@@ -5,95 +5,97 @@ function PolicyComponent() {
   const [showForm, setShowForm] = useState(false);
   const [policies, setPolicies] = useState([]);
   const [editingPolicy, setEditingPolicy] = useState(null);
+  // const policyId = localStorage.getItem('policyId');
+  // const updatedPolicyWithId = { ...updatedPolicy, id: policyId };
+
 
   useEffect(() => {
     async function getPolicies() {
-      const response = await axios.get(
-        "https://rxk4239.uta.cloud/createPolicies.php"
-      );
-      setPolicies(response.data.data);
+      try {
+        const response = await axios.get("https://rxk4239.uta.cloud/createPolicies.php");
+        if (response.data && response.data.data) {
+          setPolicies(response.data.data);
+        } else {
+          setPolicies([]);
+        }
+      } catch (error) {
+        console.error("Error fetching policies:", error);
+      }
     }
-    getPolicies();
-  }, [policies]);
 
-  const handleAddPolicy = (policy) => {
-    console.log(policy);
-    setShowForm(false);
-  };
+    getPolicies();
+  }, []);
 
   const handleEdit = (policy) => {
+    localStorage.setItem('policyId', policy.id);  // Store the ID in localStorage
     setEditingPolicy(policy);
     setShowForm(true);
   };
 
-  const handleUpdatePolicy = (updatedPolicy) => {
-    const updatedPolicies = policies.map((p) =>
-      p.id === updatedPolicy.id ? updatedPolicy : p
-    );
-    setPolicies(updatedPolicies);
 
-    setEditingPolicy(null);
+
+
+  const handleAddPolicy = async (policy) => {
+    try {
+      const response = await axios.post('https://rxk4239.uta.cloud/plagarismAPI.php', policy);
+      if (response.data && response.data.message.includes('successfully')) {
+        setPolicies([...policies, policy]);
+      }
+    } catch (error) {
+      console.error("Error creating policy:", error);
+    }
     setShowForm(false);
   };
 
-  const handleDelete = (id) => {
-    setPolicies(policies.filter((p) => p.id !== id));
-  };
+const handleUpdatePolicy = async (updatedPolicy) => {
+    const policyId = localStorage.getItem('policyId');
+    const updatedPolicyWithId = { ...updatedPolicy, id: policyId }; // Move this line here
+
+    try {
+      const response = await axios.put('https://rxk4239.uta.cloud/plagarismAPI.php', updatedPolicyWithId); // Use updatedPolicyWithId here
+      if (response.data && response.data.message.includes('successfully')) {
+        const updatedPolicies = policies.map((p) =>
+          p.id === updatedPolicy.id ? updatedPolicy : p
+        );
+        setPolicies(updatedPolicies);
+      }
+    } catch (error) {
+      console.error("Error updating policy:", error);
+    }
+    setEditingPolicy(null);
+    setShowForm(false);
+    localStorage.removeItem('policyId');
+};
+
+
+const handleDelete = async (policyId) => {
+  if (!policyId) {
+      console.error("Policy ID is missing.");
+      return;
+  }
+
+  try {
+      const response = await axios.delete('https://rxk4239.uta.cloud/plagarismAPI.php', { data: { id: policyId } });
+      if (response.data && response.data.message.includes('successfully')) {
+          setPolicies(policies.filter((p) => p.id !== policyId));
+      }
+  } catch (error) {
+      console.error("Error deleting policy:", error);
+  }
+};
+
+
 
   return (
     <div>
-      <style>{`
-                /* Table styles */
-                .table {
-                    width: 100%;
-                    border-collapse: collapse;
-                }
-
-                .table th, .table td {
-                    padding: 10px 15px;
-                    border: 1px solid #ddd;
-                    text-align: left;
-                }
-
-                .table th {
-                    background-color: #f5f5f5;
-                }
-
-                /* Button styles */
-                .btn {
-                    display: inline-block;
-                    padding: 6px 12px;
-                    margin-bottom: 0;
-                    font-size: 14px;
-                    font-weight: 400;
-                    line-height: 1.42857143;
-                    text-align: center;
-                    white-space: nowrap;
-                    vertical-align: middle;
-                    cursor: pointer;
-                    user-select: none;
-                    border: 1px solid transparent;
-                    border-radius: 4px;
-                    background-color: #007bff;
-                    color: #fff;
-                    text-decoration: none;
-                }
-
-                .btn:hover {
-                    background-color: #0056b3;
-                }
-            `}</style>
-
       {!editingPolicy && (
         <>
-          <button className="btn" onClick={() => setShowForm(!showForm)}>
+          <button onClick={() => setShowForm(!showForm)}>
             Create Policy
           </button>
-
           {showForm && !editingPolicy && (
             <PolicyForm onSubmit={handleAddPolicy} />
           )}
-
           <PolicyTable
             policies={policies}
             onEdit={handleEdit}
@@ -101,7 +103,6 @@ function PolicyComponent() {
           />
         </>
       )}
-
       {showForm && editingPolicy && (
         <PolicyForm
           initialText={editingPolicy.description}
@@ -113,6 +114,7 @@ function PolicyComponent() {
     </div>
   );
 }
+
 
 function PolicyForm({ onSubmit, initialText = "" }) {
   const [policyText, setPolicyText] = useState(initialText);
@@ -133,7 +135,7 @@ function PolicyForm({ onSubmit, initialText = "" }) {
         onChange={(e) => setPolicyText(e.target.value)}
         placeholder="Enter policy text"
       />
-      <button type="submit" className="btn">
+      <button type="submit">
         Submit
       </button>
     </form>
@@ -170,5 +172,6 @@ function PolicyTable({ policies, onEdit, onDelete }) {
     </table>
   );
 }
+
 
 export default PolicyComponent;

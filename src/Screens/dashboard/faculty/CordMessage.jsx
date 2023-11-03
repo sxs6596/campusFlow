@@ -255,30 +255,52 @@ function CordMessage() {
                   borderBottom: "1px solid #ddd",
                 }}
               >
-                {previousMessages.map((msg, index) => (
+              {previousMessages.map((msg, index) => {
+                const isCurrentUser = localStorage.getItem('id') === msg.sender;
+                return (
                   <div
                     key={index}
                     className="previous-message"
                     style={{
-                      padding: "8px 0",
+                      padding: "8px 12px",
                       borderBottom: "1px solid #eee",
                       textAlign: "left",
+                      backgroundColor: isCurrentUser ? "#007BFF" : "white",
+                      color: isCurrentUser ? "white" : "black",
+                      borderRadius: "8px",
+                      margin: "8px",
+                      maxWidth: "70%",
+                      float: isCurrentUser ? "right" : "left",
+                      clear: "both", // Add this property
                     }}
                   >
-                    <strong>Receive: {msg.userId}</strong>: {msg}
+                    <strong>{isCurrentUser ? localStorage.getItem('first_name') : selectedUserRole}:</strong> {msg.message}
                   </div>
-                ))}
-                {chatMessages.map((msg, index) => (
+                );
+              })}
+
+              {chatMessages.map((msg, index) => {
+                const isCurrentUser = !(localStorage.getItem('id') === msg.sender);
+                return (
                   <div
                     key={index}
                     style={{
-                      padding: "8px 0",
+                      padding: "8px 12px",
                       borderBottom: "1px solid #eee",
+                      textAlign: "left",
+                      backgroundColor: isCurrentUser ? "#007BFF" : "white",
+                      color: isCurrentUser ? "white" : "black",
+                      borderRadius: "8px",
+                      margin: "8px",
+                      maxWidth: "70%",
+                      float: isCurrentUser ? "right" : "left",
+                      clear: "both", // Add this property
                     }}
                   >
-                    <strong>Sender: {msg.userId}</strong>: {msg.message}
+                    <strong>{isCurrentUser ? localStorage.getItem('first_name') : selectedUserRole}:</strong> {msg.message}
                   </div>
-                ))}
+                );
+              })}
               </div>
               <div
                 className="chat-input-container"

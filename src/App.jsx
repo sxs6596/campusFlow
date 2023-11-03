@@ -6,7 +6,9 @@ import Policies from "./Screens/dashboard/Policies"
 import IndexStudent from "./Screens/dashboard/students/Index"
 import Dashboard from "./Screens/dashboard/Dashboard"
 import NotFound from "./Screens/NotFound"
+import ResetPassword from "./ResetPassword"
 import Course from "./Screens/dashboard/students/Course";
+
 import Grades from "./Screens/dashboard/students/Grades";
 import IndexFaculty from "./Screens/dashboard/faculty/IndexFaculty";
 import FacultyListScreen from "./Screens/dashboard/FacultyListScreen";
@@ -83,6 +85,7 @@ export default function App() {
           <Route path="/signup" element={<SignupScreen />} />
           <Route path="/forgot_password" element={<ForgetPassword />} />
           <Route path="/chatComponent" element={<ChatComponent/>} />
+          <Route path="/reset_password" element={<ResetPassword />} />
           <Route path="/dashboard" element={<Dashboard userType={user} />}>
             {
               user === "student" && <>
