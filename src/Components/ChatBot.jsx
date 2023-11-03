@@ -94,9 +94,6 @@ export default function ChatBot() {
           <img className="botIcon" onClick={botToggler} src={BotIcon} alt="" />
         </div>
       </div>
-      <div>
-        <a href="https://rxk4239.uta.cloud/home.php">Test Link</a>
-      </div>
     </>
   );
 }
