@@ -6,17 +6,17 @@ import "./styles/ModifyCourse.css";
 export default function ModifyCourse() {
     const [course, setCourse] = useState([]);
     const [newData, setnewData] = useState({
-            id : 0,
-            title : "",
-            description : "",
-            start_date : "",
-            end_date : "",
+        id: 0,
+        title: "",
+        description: "",
+        start_date: "",
+        end_date: "",
     });
+
     useEffect(() => {
         const getCourses = async () => {
             const response = await fetch("https://rxk4239.uta.cloud/courses.php");
             const data = await response.json();
-            // console.log(data.data);
             setCourse(data.data);
         };
         getCourses();
@@ -25,20 +25,30 @@ export default function ModifyCourse() {
     async function courseModified(e) {
         e.preventDefault();
         alert("Course Modified");
-        const response = await axios.post('https://rxk4239.uta.cloud/updatecourses.php',newData);
-        // console.log(`updated data is :${newData.id}`);
+        const response = await axios.post('https://rxk4239.uta.cloud/updatecourses.php', newData);
     }
-    
-    function deleteCourse(e, id) {
-        setCourse(course.filter((item) => item.id !== id));
-        alert("Course Deleted");
+
+    async function deleteCourse(e, id) {
+        e.preventDefault();
+
+        try {
+            const response = await axios.delete(`https://rxk4239.uta.cloud/coursereview.php?id=${id}`);
+            if (response.data.message.includes('successfully')) {
+                setCourse(course.filter((item) => item.id !== id));
+                alert("Course Deleted Successfully!");
+            } else {
+                alert(response.data.message);
+            }
+        } catch (error) {
+            console.error("Error deleting course:", error);
+            alert("Error deleting course. Please try again.");
+        }
     }
+
     const uniqueCourses = course.filter((item, index, self) =>
-  index === self.findIndex((t) => (
-    t.title === item.title
-  ))
-)
-    
+        index === self.findIndex((t) => t.title === item.title)
+    )
+
     return (
         <>
             <div className="qa-course-header row">
@@ -51,7 +61,7 @@ export default function ModifyCourse() {
                         className="input"
                         type="text"
                         placeholder="Enter Course ID"
-                        onChange = {e=>setnewData({...newData,id:e.target.value})}
+                        onChange={e => setnewData({ ...newData, id: e.target.value })}
                     />
                 </div>
                 <div className="input-core row">
@@ -60,7 +70,7 @@ export default function ModifyCourse() {
                         className="input"
                         type="text"
                         placeholder="Enter Course Name"
-                        onChange = {e=>setnewData({...newData,title:e.target.value})}
+                        onChange={e => setnewData({ ...newData, title: e.target.value })}
                     />
                 </div>
                 <div className="dbl">
@@ -69,7 +79,7 @@ export default function ModifyCourse() {
                             className="input"
                             type="date"
                             placeholder="start date"
-                            onChange = {e=>setnewData({...newData,start_date:e.target.value})}
+                            onChange={e => setnewData({ ...newData, start_date: e.target.value })}
                         />
                     </div>
                     <div className="input-core row">
@@ -77,7 +87,7 @@ export default function ModifyCourse() {
                             className="input"
                             type="date"
                             placeholder="end date"
-                            onChange = {e=>setnewData({...newData,end_date:e.target.value})}
+                            onChange={e => setnewData({ ...newData, end_date: e.target.value })}
                         />
                     </div>
                 </div>
@@ -87,26 +97,26 @@ export default function ModifyCourse() {
                         className="input"
                         type="text"
                         placeholder="Course Description"
-                        onChange = {e=>setnewData({...newData,description:e.target.value})}
+                        onChange={e => setnewData({ ...newData, description: e.target.value })}
                     />
                 </div>
                 <button className="button">Update Courses</button>
             </form>
             <div>
                 {
-                    uniqueCourses.map(item=>{
-                        return <>
-                            <div className="course-box row">
+                    uniqueCourses.map(item => {
+                        return (
+                            <div className="course-box row" key={item.id}>
                                 <div className="course-box-left">
                                     <h3>{item.title}</h3>
                                 </div>
                                 <div className="course-box-right">
-                                    <button className="deleteBtn" onClick={e => deleteCourse(e,item.id)}>
+                                    <button className="deleteBtn" onClick={e => deleteCourse(e, item.id)}>
                                         Delete
                                     </button>
                                 </div>
                             </div>
-                        </>
+                        )
                     })
                 }
             </div>
