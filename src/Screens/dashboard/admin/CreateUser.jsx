@@ -6,7 +6,7 @@ export default function CreateUser() {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [rollNo, setRollNo] = useState("");
-  const [userType, setUserType] = useState("");  // State for the type of user
+  const [userType, setUserType] = useState("");
 
   function createUser(e) {
     e.preventDefault();
@@ -15,28 +15,27 @@ export default function CreateUser() {
       first_name: name,
       email: email,
       roll_no: rollNo,
-      type: userType, // Send the user type to the backend
+      type: userType
     };
 
     fetch("https://rxk4239.uta.cloud/updateuserdata.php", {
-        method: "PUT",  // Change this line
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(newUserData),
-      })
-      
-      .then((response) => response.json())
-      .then((data) => {
-        if (data.success) {
-          alert("User Created");
-        } else {
-          alert("Failed to create user");
-        }
-      })
-      .catch((error) => {
-        console.error("Error creating user: ", error);
-      });
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(newUserData),
+    })
+    .then((response) => response.json())
+    .then((data) => {
+      if (data.success) {
+        alert("User Created");
+      } else {
+        alert("Failed to create user");
+      }
+    })
+    .catch((error) => {
+      console.error("Error creating user: ", error);
+    });
   }
 
   return (
