@@ -58,6 +58,7 @@ import CourseReview from "./Screens/dashboard/CourseReview";
 import Feedback from "./Screens/dashboard/cord/Feedback";
 import Troubleshoot from  "./Screens/dashboard/admin/Troubleshoot";
 import StudentGradesBar from "./Components/dashboard/StudentGradesBar"
+import CreateUser from "./Screens/dashboard/admin/CreateUser";
 import {AppContext} from "./AppContext"
 import CommonGradesBar from "./CommonGrades"
 const CordMessage = lazy(() => import("./Screens/dashboard/faculty/CordMessage"));
@@ -157,6 +158,7 @@ export default function App() {
                 <Route path="student/:studentId" element={<StudentProfile userType={user} />} />
                 <Route path="faculty/:facultyId" element={<FacultyProfile userType={user} />} />
                 <Route path="message/:userType/:id" element={<MessageScreen />} />
+                <Route path="CreateUser" element={<CreateUser />} />
                 <Route path="troubleshoot" element={<Troubleshoot />} />
               </>
             }

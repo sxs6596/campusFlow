@@ -25,6 +25,12 @@ export default [
         icon: PiStudentBold,
     },
     {
+        id: "create-user",
+        title: "Create User",
+        path: "/dashboard/createuser",
+        icon: PiStudentBold,
+    },
+    {
         id: "manage-cord",
         title: "Manage Cord",
         path: "/dashboard/manage-cord",
