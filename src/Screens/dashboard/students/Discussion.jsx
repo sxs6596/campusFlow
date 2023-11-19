@@ -46,7 +46,7 @@ function Discussion() {
 
       try {
         const response = await axios.post(
-          "https://sxs6596.uta.cloud/test_chatto.php",
+          "https://rxk4239.uta.cloud/test_chatto.php",
           prevSubmitData,
           {
             headers: headers,
@@ -83,7 +83,7 @@ function Discussion() {
 
       try {
         const response = await axios.post(
-          "https://sxs6596.uta.cloud/test_getformdata.php",
+          "https://rxk4239.uta.cloud/test_getformdata.php",
           { role },
           {
             headers: headers,
@@ -134,7 +134,7 @@ function Discussion() {
 
         try {
           const response = await axios.post(
-            "https://sxs6596.uta.cloud/test_chatfrom.php",
+            "https://rxk4239.uta.cloud/test_chatfrom.php",
             postData,
             {
               headers: headers,
