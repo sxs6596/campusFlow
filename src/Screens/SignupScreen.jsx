@@ -7,9 +7,12 @@ import "./styles/HomeScreen.css";
 import { FaLock, FaUser } from "react-icons/fa";
 import { ImMail } from "react-icons/im";
 import emailjs from 'emailjs-com';
-
-
+import ToastDemo from "../Components/ToastDemo";
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+import {Button, Flex} from "@radix-ui/themes";
 export default function SignupScreen() {
+  const notify = ()=>toast("sign up successful !");
   const [data, setData] = useState({
     firstName: "",
     lastName: "",
@@ -82,6 +85,7 @@ export default function SignupScreen() {
         console.log(response);
         if (response.data.status === "success") {
           setServerMessage("Sign Up successful!");
+          notify();
         } else {
           setServerMessage("Sign up failed: " + response.data.message);
         }
@@ -175,7 +179,11 @@ export default function SignupScreen() {
                 onChange={signHandler}
               />
             </div>
-            <button className="button signup-btn">Sign Up</button>
+            <div></div>
+            <Flex align="center" gap="10" direction="column">
+            <Button type="submit" size="3" gap="3">SignUp</Button>
+            </Flex>
+            <ToastContainer />
             <div className="tos-details">
               <input id="tos" name="" type="checkbox" />
               <label htmlFor="tos" id="tos-label">

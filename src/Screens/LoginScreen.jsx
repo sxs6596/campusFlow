@@ -7,7 +7,9 @@ import "./styles/Auth.css";
 import "./styles/HomeScreen.css";
 import {useContext} from 'react';
 import User from '../data/User';
-
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+import ButtonCompo from "../Components/ButtonCompo";
 // Define LoginComponent outside of LoginScreen
 const LoginComponent = () => {
   const {loggedInUser, setLoggedInUser} = useContext(User);
@@ -15,7 +17,8 @@ const LoginComponent = () => {
   const [passwordData, setPassword] = useState("");
   const [data, setData] = useState([]);
   const navigate = useNavigate();
-
+  const Errornotify = ()=>toast("Error fetching the data!");
+  const Successnotify = ()=>toast("Login successful!");
   useEffect(() => {
     async function fetchData() {
       try {
@@ -24,8 +27,12 @@ const LoginComponent = () => {
         );
         setData(response.data.data);
         console.log(response.data.data);
+        if(response.data.success){
+          // Successnotify();
+        }
       } catch (error) {
         console.error("Error fetching data:", error);
+        Errornotify();
       }
     }
     fetchData();
@@ -49,8 +56,11 @@ const LoginComponent = () => {
       email: emailData,
       password: passwordData,
     };
-
+  
     const submitresponse = await axios.post('https://rxk4239.uta.cloud/login_db_test.php', userSubmitData);
+    if(submitresponse.data.success){
+      Successnotify();
+    }
     const responseData = submitresponse.data.data; 
     console.log(`data is :${JSON.stringify(responseData, null, 2)}`);
     console.log('\n');
@@ -69,7 +79,11 @@ const LoginComponent = () => {
     localStorage.setItem("email", user.email);
     if (user.user === "student") {
       localStorage.setItem("user", "student");
-      window.location.href = "/dashboard";
+      
+      setTimeout(() => {  
+        Successnotify();
+        window.location.href = "/dashboard";
+      }, 3000);
     } else if (user.user === "faculty") {
       localStorage.setItem("user", "faculty");
       window.location.href = "/dashboard";
@@ -139,7 +153,9 @@ const LoginComponent = () => {
                 onChange={(e) => setPassword(e.target.value)}
               />
             </div>
-            <button className="button">Log In</button>
+            <ButtonCompo type="submit" title="Login" size="3" direction="column"/>
+            <ToastContainer/>
+            
             <Link to="/forgot_password" style={{ color: "blue" }}>
               Forgot Password
             </Link>

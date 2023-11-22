@@ -46,7 +46,7 @@ export default function AboutPage() {
                     classNameified as an R1 doctoral university with very high research activity. UTA offers over 180 bachelor's, master's
                     and doctoral degree programs across 10 colleges and schools.
                 </p>
-                <Button>Click here</Button>
+                
             </section>
 
             <section>
