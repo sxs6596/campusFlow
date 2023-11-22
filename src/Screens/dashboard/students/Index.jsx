@@ -3,6 +3,7 @@ import Course from "../../../data/Course";
 import {useState, useEffect} from "react";
 import "./styles/Index.css";
 import axios from 'axios';
+import {Container, Grid, Heading, Box} from '@radix-ui/themes';
 export default function Index() {
     // enrolled courses
     const [data, setData] = useState({courses:[]});
@@ -54,13 +55,12 @@ export default function Index() {
         getCourses();
       }, [filteredData])
     return <>
-        <div className="enrolled-header row">
-            <div>
-                <h2>Enrolled Courses</h2>
-            </div>
-        </div>
-        <div className="course-container row">
-            {
+        <Container>
+          <Box gap="4" >
+            <Heading>Enrolled Courses</Heading>
+          </Box>
+        <Grid columns="2" gap="5" width="auto">
+        {
                 filteredData.filter((course) => {
                     return course.enrolled === '1';
                 }).map((course) => {
@@ -68,7 +68,8 @@ export default function Index() {
                 })
 
             }
-        </div>
+          </Grid>
+        </Container>
 
     </>
 }
