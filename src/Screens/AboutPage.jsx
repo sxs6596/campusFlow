@@ -7,7 +7,7 @@ import User2 from "../assets/images/Memoji-05.png"
 import User3 from "../assets/images/Memoji-10.png"
 import User4 from "../assets/images/Memoji-13.png"
 import User5 from "../assets/images/Memoji-23.png"
-
+import {Button} from "@radix-ui/themes";
 export default function AboutPage() {
     function myFunction() {
         let x = document.getElementById("myTopnav");
@@ -46,6 +46,7 @@ export default function AboutPage() {
                     classNameified as an R1 doctoral university with very high research activity. UTA offers over 180 bachelor's, master's
                     and doctoral degree programs across 10 colleges and schools.
                 </p>
+                <Button>Click here</Button>
             </section>
 
             <section>

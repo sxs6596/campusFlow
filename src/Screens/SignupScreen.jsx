@@ -76,7 +76,7 @@ export default function SignupScreen() {
 
       try {
         const response = await axios.post(
-          "https://rxk4239.uta.cloud/db_test.php",
+          "https://rxk4239.uta.cloud/db_test_test.php",
           userData
         );
         console.log(response);

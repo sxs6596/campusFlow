@@ -43,12 +43,25 @@ const LoginComponent = () => {
   }
 
   const handleSubmit = async (e) => {
-    e.preventDefault();
-    const response = await axios.get("https://rxk4239.uta.cloud/db_test.php");
 
-    let user = response.data.data.find(
-      (u) => u.email === emailData && u.password === passwordData
-    );
+    e.preventDefault();
+    const userSubmitData = {
+      email: emailData,
+      password: passwordData,
+    };
+
+    const submitresponse = await axios.post('https://rxk4239.uta.cloud/login_db_test.php', userSubmitData);
+    const responseData = submitresponse.data.data; 
+    console.log(`data is :${JSON.stringify(responseData, null, 2)}`);
+    console.log('\n');
+    console.log(`last_name is :${responseData.last_name}`)
+    // console.log(`data is ${data}`);    
+    // const response = await axios.get("https://rxk4239.uta.cloud/db_test.php");
+
+    // let user = response.data.data.find(
+    //   (u) => u.email === emailData && u.password === passwordData
+    // );
+    let user = responseData; 
     console.log(`logged in user is ${user}`);
     setLoggedInUser(user);  
     localStorage.setItem("id", user.id);
@@ -143,3 +156,5 @@ const LoginComponent = () => {
 };
 
 export default LoginComponent; // Export the LoginComponent
+
+

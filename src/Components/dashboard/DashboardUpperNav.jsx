@@ -1,6 +1,7 @@
 import "./styles/DashboardUpperNav.css";
 import { Link } from "react-router-dom";
 import { FiMenu } from "react-icons/fi";
+import {Button} from "@radix-ui/themes";
 export default function DashboardUpperNav(prop) {
     function AsideOpener() {
         let aside = document.querySelector(".dashboard-aside")
@@ -17,6 +18,7 @@ export default function DashboardUpperNav(prop) {
             <div className="upper-link-item row">
                 <Link className="upper-link" to="grades">Grades</Link>
                 <Link className="upper-link nav-btn" to="/dashboard/account">Account</Link>
+                <Button>Click Here</Button>
             </div>
         </nav>
     </>
