@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import "./Discussion.css";
 import axios from "axios";
+import {Button} from "@radix-ui/themes";
 
 axios.defaults.headers.post["Content-Type"] = "application/json";
 axios.defaults.withCredentials = true;
@@ -204,7 +205,8 @@ function Discussion() {
               </select>
             </div>
             <div className="select-container">
-              <button type="submit">Start Chat</button>
+              <Button type="submit" color="#6495ED">Start Chat</Button>
+              {/* <button type="submit">Start Chat</button> */}
             </div>
           </form>
           {chatVisible && (

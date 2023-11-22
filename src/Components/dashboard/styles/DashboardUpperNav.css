@@ -7,7 +7,7 @@
     color: #ffffff;
     justify-content: flex-end;
     position: fixed;
-    background-color: #2222e6;
+    background-color: #6495ED;
 }
 
 .upper-link {
@@ -23,7 +23,7 @@
     justify-content: space-between;
 }
 .nav-btn{
-    color: #2222e6;
+    color: #6495ED;
     border-radius: 10px;
     background-color: #ffffff;
 }

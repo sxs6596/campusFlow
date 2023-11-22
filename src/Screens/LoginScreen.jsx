@@ -79,7 +79,6 @@ const LoginComponent = () => {
     localStorage.setItem("email", user.email);
     if (user.user === "student") {
       localStorage.setItem("user", "student");
-      
       setTimeout(() => {  
         Successnotify();
         window.location.href = "/dashboard";

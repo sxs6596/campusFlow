@@ -18,7 +18,6 @@ export default function DashboardUpperNav(prop) {
             <div className="upper-link-item row">
                 <Link className="upper-link" to="grades">Grades</Link>
                 <Link className="upper-link nav-btn" to="/dashboard/account">Account</Link>
-                <Button>Click Here</Button>
             </div>
         </nav>
     </>

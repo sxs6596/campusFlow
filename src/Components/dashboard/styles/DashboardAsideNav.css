@@ -18,7 +18,9 @@
     height: 80px;
     color: #ffffff;
     align-items: center;
-    background-color: #2222e6;
+    /* #5072A7 */
+    
+    background-color: #6495ED;
 }
 
 .aside-ul-li {

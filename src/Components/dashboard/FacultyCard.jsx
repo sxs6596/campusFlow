@@ -1,34 +1,47 @@
-import "./styles/FacultyCard.css"
-import { Link } from "react-router-dom";
-import {useNavigate} from "react-router-dom";
-import ChatComponent from "./ChatComponent";
+import { Avatar } from '@radix-ui/react-avatar';
+import { useNavigate } from "react-router-dom";
+
 export default function FacultyCard(prop) {
     const navigate = useNavigate();
-    const handleFacultyChat = ()=>{
-        // navigate("/chatComponent");
+    
+    const handleFacultyChat = () => {
         navigate("/chatComponent");
     }
+
+    const facultyCardRowStyle = {
+        display: 'flex',
+        alignItems: 'center',
+        marginBottom: '20px', // Adjust as needed
+    };
+
+    const facultyAvatarStyle = {
+        marginRight: '20px', // Adjust as needed
+    };
+
+    const facultyDetailsStyle = {
+        display: 'flex',
+        flexDirection: 'column',
+    };
+
+    const buttonStyle = {
+        marginTop: '10px', // Adjust as needed
+    };
+
     return (
-        <>
-            <div className="faculty-card">
-                <div className="faculty-img-cont">
-                    <img src={prop.image} alt="" className="faculty-img" />
-                </div>
-                <div className="faculty-txt-cont">
-                    <div>
-                        <h3>{prop.name}</h3>
-                        <p>{prop.department}</p>
-                        <p>{prop.email}</p>
-                    </div>
-                    <div>
-                        {/* <Link to={"/dashboard/message/faculty/" + prop.id}> */}
-                            <button className="button" onClick={handleFacultyChat}>
-                                Connect
-                            </button>
-                        {/* </Link> */}
-                    </div>
-                </div>
+        <div style={facultyCardRowStyle}>
+            <div style={facultyAvatarStyle}>
+                <Avatar>
+                    <img src={prop.image} alt={prop.name} />
+                </Avatar>
             </div>
-        </>
+            <div style={facultyDetailsStyle}>
+                <p><strong>Name:</strong> {prop.name}</p>
+                <p><strong>Email:</strong> {prop.email}</p>
+                <p><strong>ID:</strong> {prop.id}</p>
+                <button style={buttonStyle} onClick={handleFacultyChat}>
+                    Connect
+                </button>
+            </div>
+        </div>
     );
 }
