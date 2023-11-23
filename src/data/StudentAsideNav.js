@@ -35,12 +35,12 @@ export default [
         path: "/dashboard/exam",
         icon: PiExamFill,
     },
-    {
-        id: "complain",
-        title: "Complain",
-        path: "/dashboard/complain",
-        icon: FaHandsHelping,
-    },
+    // {
+    //     id: "complain",
+    //     title: "Complain",
+    //     path: "/dashboard/complain",
+    //     icon: FaHandsHelping,
+    // },
     {
         id: "settings",
         title: "Settings",
