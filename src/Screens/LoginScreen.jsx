@@ -5,20 +5,28 @@ import { ImLock, ImMail } from "react-icons/im";
 import axios from "axios";
 import "./styles/Auth.css";
 import "./styles/HomeScreen.css";
-import {useContext} from 'react';
-import User from '../data/User';
-import { ToastContainer, toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
+import { useContext } from "react";
+import User from "../data/User";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 import ButtonCompo from "../Components/ButtonCompo";
+import {
+  FormControl,
+  FormLabel,
+  FormErrorMessage,
+  FormHelperText,
+  Input
+} from "@chakra-ui/react";
+
 // Define LoginComponent outside of LoginScreen
 const LoginComponent = () => {
-  const {loggedInUser, setLoggedInUser} = useContext(User);
+  const { loggedInUser, setLoggedInUser } = useContext(User);
   const [emailData, setEmail] = useState("");
   const [passwordData, setPassword] = useState("");
   const [data, setData] = useState([]);
   const navigate = useNavigate();
-  const Errornotify = ()=>toast("Error fetching the data!");
-  const Successnotify = ()=>toast("Login successful!");
+  const Errornotify = () => toast("Error fetching the data!");
+  const Successnotify = () => toast("Login successful!");
   useEffect(() => {
     async function fetchData() {
       try {
@@ -27,7 +35,7 @@ const LoginComponent = () => {
         );
         setData(response.data.data);
         console.log(response.data.data);
-        if(response.data.success){
+        if (response.data.success) {
           // Successnotify();
         }
       } catch (error) {
@@ -50,36 +58,38 @@ const LoginComponent = () => {
   }
 
   const handleSubmit = async (e) => {
-
     e.preventDefault();
     const userSubmitData = {
       email: emailData,
       password: passwordData,
     };
-  
-    const submitresponse = await axios.post('https://rxk4239.uta.cloud/login_db_test.php', userSubmitData);
-    if(submitresponse.data.success){
+
+    const submitresponse = await axios.post(
+      "https://rxk4239.uta.cloud/login_db_test.php",
+      userSubmitData
+    );
+    if (submitresponse.data.success) {
       Successnotify();
     }
-    const responseData = submitresponse.data.data; 
+    const responseData = submitresponse.data.data;
     console.log(`data is :${JSON.stringify(responseData, null, 2)}`);
-    console.log('\n');
-    console.log(`last_name is :${responseData.last_name}`)
-    // console.log(`data is ${data}`);    
+    console.log("\n");
+    console.log(`last_name is :${responseData.last_name}`);
+    // console.log(`data is ${data}`);
     // const response = await axios.get("https://rxk4239.uta.cloud/db_test.php");
 
     // let user = response.data.data.find(
     //   (u) => u.email === emailData && u.password === passwordData
     // );
-    let user = responseData; 
+    let user = responseData;
     console.log(`logged in user is ${user}`);
-    setLoggedInUser(user);  
+    setLoggedInUser(user);
     localStorage.setItem("id", user.id);
     localStorage.setItem("first_name", user.first_name);
     localStorage.setItem("email", user.email);
     if (user.user === "student") {
       localStorage.setItem("user", "student");
-      setTimeout(() => {  
+      setTimeout(() => {
         Successnotify();
         window.location.href = "/dashboard";
       }, 3000);
@@ -99,7 +109,7 @@ const LoginComponent = () => {
       alert("User not found");
     }
   };
-
+  const isError = ''
   return (
     <>
       <header>
@@ -152,9 +162,14 @@ const LoginComponent = () => {
                 onChange={(e) => setPassword(e.target.value)}
               />
             </div>
-            <ButtonCompo type="submit" title="Login" size="3" direction="column"/>
-            <ToastContainer/>
-            
+            <ButtonCompo
+              type="submit"
+              title="Login"
+              size="3"
+              direction="column"
+            />
+            <ToastContainer />
+
             <Link to="/forgot_password" style={{ color: "blue" }}>
               Forgot Password
             </Link>
@@ -171,5 +186,3 @@ const LoginComponent = () => {
 };
 
 export default LoginComponent; // Export the LoginComponent
-
-

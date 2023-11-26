@@ -35,7 +35,7 @@ export default function ChatBot() {
   const [prompt, setPrompt] = useState("");
   const [response, setResponse] = useState("");
   const openai = new OpenAI({
-    apiKey: "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",
+    apiKey: "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",
     dangerouslyAllowBrowser: true,
   });
   const [message, setMessage] = useState([]);
