@@ -12,6 +12,12 @@ export default [
         icon: ImHome,
     },
     {
+        id: "home",
+        title: "AI Recommendations",
+        path: "/dashboard/recommendations",
+        icon: HiChatAlt2,
+    },
+    {
         id: "courses",
         title: "Courses",
         path: "/dashboard/courses",
@@ -47,6 +53,7 @@ export default [
         path: "/dashboard/settings",
         icon: HiOutlineCog,
     },
+
     {
         id: "logout",
         title: "Logout",

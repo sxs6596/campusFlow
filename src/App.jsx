@@ -4,6 +4,7 @@ import { BrowserRouter, Routes, Route } from "react-router-dom"
 import HomeScreen from "./Screens/HomeScreen"
 import Policies from "./Screens/dashboard/Policies"
 import IndexStudent from "./Screens/dashboard/students/Index"
+import Recommendations from "./Screens/dashboard/students/Recommendations";
 import Dashboard from "./Screens/dashboard/Dashboard"
 import NotFound from "./Screens/NotFound"
 import ResetPassword from "./ResetPassword"
@@ -100,6 +101,7 @@ export default function App() {
                 <Route path="courses" element={<Course />} />
                 <Route path="course/:courseId" element={<CourseDetails />} />
                 <Route path="grades" element={<StudentGradesBar />} />
+                <Route path="recommendations" element={<Recommendations />} />
               </>
             }
             {

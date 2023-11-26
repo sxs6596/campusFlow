@@ -1,12 +1,14 @@
 .dashboard-upper {
     flex: 1;
     height: 80px;
-    width: calc(100% - 300px);
+    width: 100%;
     padding: 0 20px;
     align-items: center;
     color: #ffffff;
     justify-content: flex-end;
-    position: fixed;
+    position: sticky;
+    top: 0;
+    z-index: 1000;
     background-color: #6495ED;
 }
 
