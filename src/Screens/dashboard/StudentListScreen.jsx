@@ -19,6 +19,7 @@ export default function StudentListScreen() {
       const postData = (userType !== 'cord' && userType !== 'quality-admin' && facultyUserId) 
           ? { faculty_user_id: facultyUserId } 
           : {};
+      console.log("post data is : ", postData);
 
       try {
         const response = await axios.post(endpoint, postData, {
@@ -26,6 +27,7 @@ export default function StudentListScreen() {
             "Content-Type": "application/json",
           },
         });
+        console.log("student list in faculty page is : ", response.data)
         setStudents(response.data);
       } catch (error) {
         console.error("Error fetching student data: ", error);

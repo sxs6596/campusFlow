@@ -116,7 +116,7 @@ const Recommendations = () => {
 
       // Your existing OpenAI API call
       const openai = new OpenAI({
-        apiKey: "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",
+        apiKey: "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",
         dangerouslyAllowBrowser: true,
       });
       const chatCompletion = await openai.chat.completions.create({
@@ -187,7 +187,7 @@ const Recommendations = () => {
     console.log(`Monthly goals for is ${course}`);
     const customPrompt = `Your task is to generate a list of exactly 7 todo's of the course topic titles only in single line particularly for this ${course}`
     const openai = new OpenAI({
-      apiKey: "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",
+      apiKey: "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",
       dangerouslyAllowBrowser: true,
     });
     const chatCompletion = await openai.chat.completions.create({
@@ -209,7 +209,7 @@ const Recommendations = () => {
   setDemoFlag(true);
   const customPrompt = `Your task is to generate the list of resources for this course : ${course}, and it should compulsorly include strictly only 2 textbooks, 2 courses, 2 youtube links and 2 blogs, and make sure that link and description is in one single line and provide the shorter url instead of long and use bit.ly links for each`;
   const openai = new OpenAI({
-    apiKey: "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",
+    apiKey: "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",
     dangerouslyAllowBrowser: true,
   });
   const chatCompletion = await openai.chat.completions.create({
@@ -285,7 +285,7 @@ const Recommendations = () => {
   
   return (
     <Container>
-     <Heading size="8" highContrast color="crimson" align="center" mb="8">Student AI Recommendations</Heading>
+     <Heading size="8" highContrast color="crimson" align="center" mb="8">Student AI Dashboard</Heading>
     <Grid columns="2" gap="3" width="auto" height="auto">
       {/* Recommendations Section */}
        {/* Enrolled Courses Section */}

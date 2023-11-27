@@ -38,9 +38,6 @@ export default function StudentCard(prop) {
                 <span className="link-space"></span> {/* Add space */}
               </>
             )}
-            <Link to="/chatComponent" className="student-tag">
-              Message
-            </Link>
             <span className="link-space"></span> {/* Add space */}
             <Link to="/chatComponent" className="student-tag">
               About

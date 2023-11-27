@@ -23,7 +23,9 @@ export default function CreateCourseScreen() {
     const createCourse = async (e) => {
         e.preventDefault();
         alert("Course Created");
+        console.log(`course that we are sending is : ${JSON.stringify(course)}`);
         const response = await axios.post("https://rxk4239.uta.cloud/addcourse.php",course);
+        console.log(response);
     }
     return <>
         <div>

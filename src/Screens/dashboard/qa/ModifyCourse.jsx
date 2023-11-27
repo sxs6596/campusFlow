@@ -2,7 +2,7 @@ import { BsFillJournalBookmarkFill } from "react-icons/bs";
 import { useState, useEffect } from "react";
 import axios from "axios";
 import "./styles/ModifyCourse.css";
-
+import {Flex, Button, Card, Heading, Text, Box} from '@radix-ui/themes';
 export default function ModifyCourse() {
     const [course, setCourse] = useState([]);
     const [newData, setnewData] = useState({
@@ -100,26 +100,29 @@ export default function ModifyCourse() {
                         onChange={e => setnewData({ ...newData, description: e.target.value })}
                     />
                 </div>
-                <button className="button">Update Courses</button>
+                <Flex direction = "column" align="center" gap="3"> 
+                <Button size="3">Update Courses</Button>
+                </Flex>
             </form>
-            <div>
-                {
-                    uniqueCourses.map(item => {
-                        return (
-                            <div className="course-box row" key={item.id}>
-                                <div className="course-box-left">
-                                    <h3>{item.title}</h3>
-                                </div>
-                                <div className="course-box-right">
-                                    <button className="deleteBtn" onClick={e => deleteCourse(e, item.id)}>
-                                        Delete
-                                    </button>
-                                </div>
-                            </div>
-                        )
-                    })
-                }
-            </div>
+            
+                <Box gap="3" mt="4">
+                    <Heading>Available Courses List</Heading>
+                <Flex direction="column" px="5" gap="3">
+                {uniqueCourses.map((item,id)=>{
+                    return(
+                        <Card key={id} className="course-card" style={{ padding: '20px', margin: '10px', boxShadow: '0 4px 8px 0 rgba(0,0,0,0.2)', maxWidth:'500px' }}>
+                            <Flex direction="row" justify="space-between" align="center">
+                                <Text style={{ fontSize: '18px', fontWeight: 'bold' }}>{item.title}</Text>
+                                <Button size="4" onClick={e => deleteCourse(e, item.id)} style={{ backgroundColor: '#ff0000', color: '#ffffff' }}>
+                                    Delete
+                                </Button>
+                            </Flex> 
+                        </Card>
+                    )
+                })}
+                </Flex>
+                </Box>
+            
         </>
     );
 }

@@ -1,7 +1,7 @@
 import { BsFillPersonFill } from "react-icons/bs";
 import { IoMdMail, IoMdPin } from "react-icons/io";
 import { useState } from "react";
-
+import {Flex, Button} from "@radix-ui/themes";
 export default function CreateUser() {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
@@ -93,7 +93,11 @@ export default function CreateUser() {
               {/* Add more user types if necessary */}
             </select>
           </div>
-          <button className="button">Create User</button>
+          <Flex direction="column" align="center" size="7" gap="3">
+            <Button type="submit" gap="3" size="3">
+              Create User
+            </Button>
+          </Flex>
         </form>
       </div>
     </>
