@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { BiLogoGmail } from "react-icons/bi";
 import { MdLocationPin } from "react-icons/md";
 import { BsFillPersonFill, BsFillTelephoneFill } from "react-icons/bs";
-
+import {Flex, Button} from "@radix-ui/themes";
 export default function ManageCord() {
     const [name, setName] = useState("");
     const [email, setEmail] = useState("");
@@ -67,7 +67,9 @@ export default function ManageCord() {
                             required 
                         />
                     </div>
-                    <button className="button">Create Cord</button>
+                   <Flex direction="column" align="center" gap="5">
+                      <Button gap="4" mt="4">Manage Cordinator</Button>
+                   </Flex>
                 </form>
             </div>
         </>

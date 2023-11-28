@@ -88,13 +88,13 @@ export default function CreateUser() {
             >
               <option value="">Select User Type</option>
               <option value="student">Student</option>
-              <option value="facukty">Teacher</option>
+              <option value="faculty">Teacher</option>
               <option value="admin">Admin</option>
               {/* Add more user types if necessary */}
             </select>
           </div>
           <Flex direction="column" align="center" size="7" gap="3">
-            <Button type="submit" gap="3" size="3">
+            <Button type="submit" gap="3" size="3" mt="4">
               Create User
             </Button>
           </Flex>

@@ -1,6 +1,7 @@
 import { FaSwatchbook } from "react-icons/fa"
 import { useState } from "react"
 import axios from 'axios';
+import {Button, Flex} from '@radix-ui/themes'
 export default function CreateExamScreen(){
     const [exam, setExam] = useState({
         examId: "",
@@ -41,9 +42,12 @@ export default function CreateExamScreen(){
                 <div className="input-core row">
                     <input type="date" name="examDate" className="input" placeholder="Exam ID" onChange={handleExamData} required />
                 </div>
-                <button className="button">
+                {/* <button className="button">
                     Create Exam
-                </button>
+                </button> */}
+                <Flex direction="column" gap="3" align="center" size="4">
+                    <Button >Create Exam</Button>
+                </Flex>
             </form>
         </div>
     </>

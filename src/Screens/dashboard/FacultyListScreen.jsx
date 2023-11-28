@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import FacultyCard from "../../Components/dashboard/FacultyCard";
 import "./styles/FacultyListScreen.css";
-
+import {Heading, Text, Badge} from '@radix-ui/themes'
 export default function FacultyListScreen() {
     const [facultyData, setFacultyData] = useState([]);
 
@@ -29,14 +29,14 @@ export default function FacultyListScreen() {
     return (
         <>
             <div className="faculty-header">
-                <h1>Faculty List</h1>
+               <Heading gap="3" mb="3">Faculty List</Heading> 
             </div>
             <div className="faculty-list-container row">
-                {
-                    facultyData.map((faculty) => (
+
+                {(facultyData.length === 0) ? <Badge highContrast color = "red" style={{maxWidth:"200px"}}>No faculty found</Badge> : facultyData.map((faculty) => (
                         <FacultyCard key={faculty.id} {...faculty} />
-                    ))
-                }
+                    ))}
+               
             </div>
         </>
     );

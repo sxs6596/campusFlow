@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { BiLogoGmail } from "react-icons/bi";
 import { MdLocationPin } from "react-icons/md";
 import { BsFillPersonFill, BsFillTelephoneFill } from "react-icons/bs";
-
+import {Flex, Button} from "@radix-ui/themes";
 export default function ManageQA() {
     const [name, setName] = useState("");
     const [email, setEmail] = useState("");
@@ -66,7 +66,9 @@ export default function ManageQA() {
                             required 
                         />
                     </div>
-                    <button className="button">Create Quality Admin</button>
+                    <Flex direction="column" align="center" gap="5">
+                      <Button gap="4" mt="4">Add Manage QA</Button>
+                   </Flex>
                 </form>
             </div>
         </>

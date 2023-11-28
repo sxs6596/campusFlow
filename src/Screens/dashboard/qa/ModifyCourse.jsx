@@ -107,13 +107,13 @@ export default function ModifyCourse() {
             
                 <Box gap="3" mt="4">
                     <Heading>Available Courses List</Heading>
-                <Flex direction="column" px="5" gap="3">
+                <Flex direction="column" px="5" gap="3" align="center">
                 {uniqueCourses.map((item,id)=>{
                     return(
                         <Card key={id} className="course-card" style={{ padding: '20px', margin: '10px', boxShadow: '0 4px 8px 0 rgba(0,0,0,0.2)', maxWidth:'500px' }}>
                             <Flex direction="row" justify="space-between" align="center">
                                 <Text style={{ fontSize: '18px', fontWeight: 'bold' }}>{item.title}</Text>
-                                <Button size="4" onClick={e => deleteCourse(e, item.id)} style={{ backgroundColor: '#ff0000', color: '#ffffff' }}>
+                                <Button size="4" onClick={e => deleteCourse(e, item.id)} style={{ backgroundColor: '#ff0000' }}>
                                     Delete
                                 </Button>
                             </Flex> 

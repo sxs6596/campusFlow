@@ -3,6 +3,7 @@ import Course from "../../../data/Course"
 import Image1 from "../../../assets/images/course1.jpg"
 import axios from "axios"
 import { useState } from "react"
+import {Button,Flex} from '@radix-ui/themes';
 export default function CreateCourseScreen() {
     const [course, setCourse] = useState({
         id: '',
@@ -58,9 +59,9 @@ export default function CreateCourseScreen() {
                         Course Description
                     </textarea>
                 </div>
-                <button className="button">
-                    Create Course
-                </button>
+                <Flex direction="column" gap="4" size="4" align="center">
+                   <Button gap="5" mt="4">Create Course</Button>
+                </Flex>
             </form>
         </div>
     </>

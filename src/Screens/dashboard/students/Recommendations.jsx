@@ -116,7 +116,7 @@ const Recommendations = () => {
 
       // Your existing OpenAI API call
       const openai = new OpenAI({
-        apiKey: "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",
+        apiKey: "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",
         dangerouslyAllowBrowser: true,
       });
       const chatCompletion = await openai.chat.completions.create({
@@ -187,7 +187,7 @@ const Recommendations = () => {
     console.log(`Monthly goals for is ${course}`);
     const customPrompt = `Your task is to generate a list of exactly 7 todo's of the course topic titles only in single line particularly for this ${course}`
     const openai = new OpenAI({
-      apiKey: "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",
+      apiKey: "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",
       dangerouslyAllowBrowser: true,
     });
     const chatCompletion = await openai.chat.completions.create({
@@ -209,7 +209,7 @@ const Recommendations = () => {
   setDemoFlag(true);
   const customPrompt = `Your task is to generate the list of resources for this course : ${course}, and it should compulsorly include strictly only 2 textbooks, 2 courses, 2 youtube links and 2 blogs, and make sure that link and description is in one single line and provide the shorter url instead of long and use bit.ly links for each`;
   const openai = new OpenAI({
-    apiKey: "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",
+    apiKey: "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",
     dangerouslyAllowBrowser: true,
   });
   const chatCompletion = await openai.chat.completions.create({
@@ -284,19 +284,19 @@ const Recommendations = () => {
   };
   
   return (
-    <Container>
+    <Container style={{marginLeft:0}}>
      <Heading size="8" highContrast color="crimson" align="center" mb="8">Student AI Dashboard</Heading>
     <Grid columns="2" gap="3" width="auto" height="auto">
       {/* Recommendations Section */}
        {/* Enrolled Courses Section */}
        <Flex direction="column" gap="3" align="center">
         
-        <Box height="auto" width="auto">
+        <Box height="auto" width="300">
           <Heading color="indigo" size="7">
             Enrolled Courses
           </Heading>
           {enrolledCourses.map((course) => (
-            <Card asChild style={{ maxWidth: 350, margin:"10px", border:'1px solid grey' }} key={course.id} gap="2" color="grey" onClick={() => {
+            <Card asChild style={{ maxWidth: 350, margin:"10px", border:'1px solid grey', boxShadow: '0 4px 8px 0 rgba(0,0,0,0.2)' }} key={course.id} gap="2" color="grey" onClick={() => {
               handleCourse(course.name)
               handleMonthlyGoals(course.name)
             }
@@ -312,13 +312,13 @@ const Recommendations = () => {
       </Flex>
       <Flex direction="column" gap="3" align="center">
        {demoFlag === true ? (<ProgressDemo/>):(<>
-        <Box height="auto" width="auto">
+        <Box height="auto" width="500">
           <Heading color="crimson" size="7">Recommendations</Heading>
           {textbooks.length > 0 ? (
           <>
           <Text size="4" highContrast color="cyan">
             
-            <Badge gap="3" size="6" variant="solid" color="cyan" radius="large" >Here are some recommended resources based on your performance metrics</Badge> 
+            <Badge gap="3" size="6" variant="solid" color="cyan" radius="large" >Recommended resources based on your performance metrics</Badge> 
           </Text>
           </>
           ):(
@@ -330,7 +330,7 @@ const Recommendations = () => {
               <Badge color="orange" size="5">Textbooks</Badge>
               </Heading>
               {textbooks.map((textbook,id) => (
-                <Card key={id} size="1" style={{width:600, margin:'5px', border:'1px solid grey'}} gap="2"  >
+                <Card key={id} size="1" style={{width:550, margin:'5px', border:'1px solid grey', boxShadow: '0 4px 8px 0 rgba(0,0,0,0.2)'}} gap="2"  >
                   <a href="#">
                     <Text as="div" size="2" weight="bold">
                       {textbook}
@@ -350,7 +350,7 @@ const Recommendations = () => {
               <Badge color="green" size="5" gap="4">Courses</Badge>
               </Heading>
               {courses.map((course,id) => (
-                <Card key={id}style={{border:'1px solid grey', margin:'5px'}}>
+                <Card key={id}style={{width:550, margin:'5px', border:'1px solid grey', boxShadow: '0 4px 8px 0 rgba(0,0,0,0.2)'}}>
                   <a href="#">
                     <Text as="div" size="2" weight="bold">
                       {course}
@@ -370,7 +370,7 @@ const Recommendations = () => {
               <Badge color="blue" size="5">Blogs</Badge>
               </Heading>
               {blogs.map((blog,id) => (
-                <Card key={id} style={{border:'1px solid grey', margin:'5px'}}>
+                <Card key={id} style={{width:550, margin:'5px', border:'1px solid grey', boxShadow: '0 4px 8px 0 rgba(0,0,0,0.2)'}}>
                   <a href="#">
                     <Text as="div" size="2" weight="bold">
                       {blog}
@@ -390,7 +390,7 @@ const Recommendations = () => {
               <Badge color="red" size="5">Youtube</Badge>
               </Heading>
               {youtubeLinks.map((linkeach,id) => (
-                <Card key={id} style={{border:'1px solid grey', margin:'5px'}}>
+                <Card key={id} style={{width:550, margin:'5px', border:'1px solid grey', boxShadow: '0 4px 8px 0 rgba(0,0,0,0.2)'}}>
                   <a href="#">
                     <Text as="div" size="2" weight="bold">
                       {linkeach}
@@ -425,7 +425,7 @@ const Recommendations = () => {
           <>
             <Heading color="orange" size="7">Monthly Goals</Heading>
             {monthlyGoals.map((goal,id) => (
-              <Card asChild style={{ maxWidth: 350, border:'1px solid grey', margin:'5px' }} key={id} gap="2" color="grey" >
+              <Card asChild style={{ maxWidth: 350, border:'1px solid grey', margin:'5px', boxShadow: '0 4px 8px 0 rgba(0,0,0,0.2)'  }} key={id} gap="2" color="grey" >
                 <div>
                   <Flex direction="row" gap="3">
                   <Checkbox  /> 

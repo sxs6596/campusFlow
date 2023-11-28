@@ -113,7 +113,7 @@ export default function UpdateCourse() {
             
           </div>
           <Flex direction="column" gap="5" align="center" size="5">
-            <Button size="3" gap="4">Update Course</Button>
+            <Button size="3" gap="4" mt="4">Update Course</Button>
           </Flex>
           {/* <button className="button">
                         Update Course
