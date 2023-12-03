@@ -49,6 +49,18 @@ Campus Flow is an innovative web-based platform tailored for educational institu
 ---
 
 ## output
+<img width="1470" alt="Screenshot 2023-12-03 at 12 53 18 AM" src="https://github.com/sxs6596/campusFlow/assets/127999061/ae7ff18a-17e3-44f5-a382-867c39c00b4d">
+
+<img width="1470" alt="Screenshot 2023-12-03 at 12 50 51 AM" src="https://github.com/sxs6596/campusFlow/assets/127999061/f5616a03-1a2a-4c59-903c-6d87444ecd9a">
+<img width="1462" alt="Screenshot 2023-12-03 at 12 51 29 AM" src="https://github.com/sxs6596/campusFlow/assets/127999061/40cb7350-9bda-4f0a-b44d-9dd5f23c7c67">
+<img width="1470" alt="Screenshot 2023-12-03 at 12 52 22 AM" src="https://github.com/sxs6596/campusFlow/assets/127999061/645858f5-8628-45fc-8e02-a5492a4c0ce4">
+<img width="1470" alt="Screenshot 2023-12-03 at 1 15 47 AM" src="https://github.com/sxs6596/campusFlow/assets/127999061/d9a32b28-9d23-4bf8-acd1-856b2ca34f00">
+<img width="1470" alt="Screenshot 2023-12-03 at 12 53 54 AM" src="https://github.com/sxs6596/campusFlow/assets/127999061/4dc0064d-4ccc-4ce3-a3e2-fb3d991b2d9e">
+
+
+
+
+
 
 ---
 
