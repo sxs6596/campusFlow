@@ -11,14 +11,16 @@ import ToastDemo from "../Components/ToastDemo";
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import {Button, Flex} from "@radix-ui/themes";
+
 export default function SignupScreen() {
-  const notify = ()=>toast("sign up successful !");
+  const notify = () => toast("sign up successful !");
   const [data, setData] = useState({
     firstName: "",
     lastName: "",
     email: "",
     password: "",
   });
+  const [role, setRole] = useState('');
   const templateParams = {
     userEmail: data.email,
   };
@@ -40,10 +42,10 @@ export default function SignupScreen() {
 
     emailjs
       .send(
-        "service_5j2xsju", // Your service ID here
-        "template_paz0wob", // Your template ID here
+        "service_5j2xsju",
+        "template_paz0wob",
         templateParams,
-        "WTCSu_Ykc_cF6_mkH" // Your user ID here
+        "WTCSu_Ykc_cF6_mkH"
       )
       .then(
         (result) => {
@@ -55,15 +57,15 @@ export default function SignupScreen() {
       );
 
     let emailRegex = /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/g;
-    let passwordRegex = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{8,}$/gm;
+    let passwordRegex = /^(?=.\d)(?=.[a-z])(?=.[A-Z])(?=.[a-zA-Z]).{8,}$/gm;
 
     if (data.firstName.length <= 3) {
       setErrorMessage("First Name must be greater than the length of 3");
     } else if (data.lastName.length <= 3) {
       setErrorMessage("Last Name must be greater than the length of 3");
-    } else if (emailRegex.test(data.email) !== true) {
+    } else if (!emailRegex.test(data.email)) {
       setErrorMessage("Email should be a valid email address");
-    } else if (passwordRegex.test(data.password) !== true) {
+    } else if (!passwordRegex.test(data.password)) {
       setErrorMessage(
         "Password must contain at least 8 characters, 1 uppercase letter, 1 lowercase letter, and 1 number"
       );
@@ -74,7 +76,7 @@ export default function SignupScreen() {
         last_name: data.lastName,
         email: data.email,
         password: data.password,
-        user: "student",
+        user: role,
       };
 
       try {
@@ -99,6 +101,10 @@ export default function SignupScreen() {
     const name = e.target.name;
     const value = e.target.value;
     setData((currentData) => ({ ...currentData, [name]: value }));
+  };
+
+  const handleRoleChange = (e) => {
+    setRole(e.target.value);
   };
 
   return (
@@ -179,9 +185,18 @@ export default function SignupScreen() {
                 onChange={signHandler}
               />
             </div>
-            <div></div>
+            <div className="input-core">
+              <select name="role" onChange={handleRoleChange} className="input" required>
+                <option value="">Select Role</option>
+                <option value="student">Student</option>
+                <option value="faculty">Faculty</option>
+                <option value="admin">Admin</option>
+                <option value="cord">Cord</option>
+                <option value="quality-admin">Quality Admin</option>
+              </select>
+            </div>
             <Flex align="center" gap="10" direction="column">
-            <Button type="submit" size="3" gap="3">SignUp</Button>
+              <Button type="submit" size="3" gap="3">SignUp</Button>
             </Flex>
             <ToastContainer />
             <div className="tos-details">

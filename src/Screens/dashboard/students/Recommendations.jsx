@@ -116,7 +116,7 @@ const Recommendations = () => {
 
       // Your existing OpenAI API call
       const openai = new OpenAI({
-        apiKey: "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",
+        apiKey: "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",
         dangerouslyAllowBrowser: true,
       });
       const chatCompletion = await openai.chat.completions.create({
@@ -187,7 +187,7 @@ const Recommendations = () => {
     console.log(`Monthly goals for is ${course}`);
     const customPrompt = `Your task is to generate a list of exactly 7 todo's of the course topic titles only in single line particularly for this ${course}`
     const openai = new OpenAI({
-      apiKey: "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",
+      apiKey: "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",
       dangerouslyAllowBrowser: true,
     });
     const chatCompletion = await openai.chat.completions.create({
@@ -209,7 +209,7 @@ const Recommendations = () => {
   setDemoFlag(true);
   const customPrompt = `Your task is to generate the list of resources for this course : ${course}, and it should compulsorly include strictly only 2 textbooks, 2 courses, 2 youtube links and 2 blogs, and make sure that link and description is in one single line and provide the shorter url instead of long and use bit.ly links for each`;
   const openai = new OpenAI({
-    apiKey: "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",
+    apiKey: "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",
     dangerouslyAllowBrowser: true,
   });
   const chatCompletion = await openai.chat.completions.create({
@@ -390,7 +390,7 @@ const Recommendations = () => {
               <Badge color="red" size="5">Youtube</Badge>
               </Heading>
               {youtubeLinks.map((linkeach,id) => (
-                <Card key={id} style={{width:550, margin:'5px', border:'1px solid grey', boxShadow: '0 4px 8px 0 rgba(0,0,0,0.2)'}}>
+                <Card key={id} style={{width:600, margin:'5px', border:'1px solid grey', boxShadow: '0 4px 8px 0 rgba(0,0,0,0.2)'}}>
                   <a href="#">
                     <Text as="div" size="2" weight="bold">
                       {linkeach}

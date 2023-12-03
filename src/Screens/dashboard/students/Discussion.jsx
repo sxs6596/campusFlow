@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
 import "./Discussion.css";
 import axios from "axios";
-import {Button} from "@radix-ui/themes";
 
 axios.defaults.headers.post["Content-Type"] = "application/json";
 axios.defaults.withCredentials = true;
@@ -20,6 +19,10 @@ function Discussion() {
   const [selectedUserId, setSelectedUserId] = useState(null);
   const [selectedUserRole, setSelectedUserRole] = useState(null);
   const [previousMessages, setPreviousMessages] = useState([]);
+  const first_name=localStorage.getItem('first_name')
+  const user_id=localStorage.getItem('id')
+  console.log("*",first_name)
+  
   const handleInputChange = (event) => {
     const { name, value } = event.target;
     setFormData((prevState) => ({
@@ -30,6 +33,7 @@ function Discussion() {
       const selectedUser = users.find((user) => user.name === value);
       setSelectedUserId(selectedUser ? selectedUser.id : null);
     }
+    // console.log("$$",isCurrentUser)
   };
   useEffect(() => {
     // Fetching previous chat messages
@@ -205,8 +209,7 @@ function Discussion() {
               </select>
             </div>
             <div className="select-container">
-              <Button type="submit" color="#6495ED">Start Chat</Button>
-              {/* <button type="submit">Start Chat</button> */}
+              <button type="submit">Start Chat</button>
             </div>
           </form>
           {chatVisible && (
@@ -256,13 +259,11 @@ function Discussion() {
                   padding: "10px",
                   borderBottom: "1px solid #ddd",
                 }}
-              >
-              {previousMessages.map((msg, index) => {
-                const isCurrentUser = localStorage.getItem('id') === msg.sender;
+              >{chatMessages.map((msg, index) => {
+                const isCurrentUser = !(localStorage.getItem('id') === msg.sender);
                 return (
                   <div
                     key={index}
-                    className="previous-message"
                     style={{
                       padding: "8px 12px",
                       borderBottom: "1px solid #eee",
@@ -280,12 +281,15 @@ function Discussion() {
                   </div>
                 );
               })}
+              {previousMessages.map((msg, index) => {
+                const isCurrentUser = (user_id == msg.sender);
 
-              {chatMessages.map((msg, index) => {
-                const isCurrentUser = !(localStorage.getItem('id') === msg.sender);
+                
                 return (
                   <div
+                    test={isCurrentUser}
                     key={index}
+                    className="previous-message"
                     style={{
                       padding: "8px 12px",
                       borderBottom: "1px solid #eee",
